@@ -13,6 +13,7 @@ if v:version >= 700
     call dein#add('majutsushi/tagbar')
     call dein#add('bling/vim-bufferline')
     call dein#add('Shougo/denite.nvim')
+    call dein#add('Yggdroot/indentLine')
     call dein#end()
 
     filetype plugin indent on
@@ -45,7 +46,7 @@ if !has('nvim')
 endif
 
 set list               " show invisible character e.g. tabs or spaces
-set clipboard+=unnamed " integrate with system clipboard
+set expandtab          " don't use tab, but space
 set shiftwidth=2       " set tab width
 set number             " show line number
 colorscheme pablo
