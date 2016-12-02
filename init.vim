@@ -15,7 +15,9 @@ if v:version >= 700
     call plug#end()
 
     " plugin settings
-    let g:airline_powerline_fonts=1
+    if $TERM != 'linux'
+      let g:airline_powerline_fonts=1
+    endif
     let g:neomake_c_enable_markers=['clang']
     let g:neomake_c_clang_args = ["-fsyntax-only -Weverything"]
     let g:neomake_cpp_enable_markers=['clang']
@@ -26,6 +28,10 @@ if v:version >= 700
   endtry
 endif
 
+if has('nvim')
+  set icm=nosplit
+endif
+
 set list                  " show invisible character e.g. tabs or spaces
 set et                    " don't use tab, but space
 set sw=2                  " set tab width
@@ -34,7 +40,10 @@ set ru                    " show where line and column cursor is
 set wim=list:longest,full
 set cole=0                " disable concealed text
 set nowrap
-colorscheme pablo
+
+if $TERM != 'linux'
+  colorscheme pablo
+endif
 
 " return to neovim-default
 set wmnu                  " enable wildmenu
