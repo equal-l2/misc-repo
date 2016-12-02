@@ -1,28 +1,20 @@
 if v:version >= 700
   try
     " plugin initialization
-    set runtimepath+=/Users/hitoshi/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+    call plug#begin('~/.config/nvim/plugged')
 
-    call dein#begin('/Users/hitoshi/.config/nvim/dein')
+    Plug 'vim-airline/vim-airline'
+    Plug 'neomake/neomake'
+    Plug 'tpope/vim-fugitive'
+    Plug 'majutsushi/tagbar'
+    Plug 'bling/vim-bufferline'
+    Plug 'Yggdroot/indentLine'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'godlygeek/tabular'
 
-    call dein#add('Shougo/dein.vim')
-    call dein#add('neomake/neomake')
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('vim-airline/vim-airline-themes')
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('majutsushi/tagbar')
-    call dein#add('bling/vim-bufferline')
-    call dein#add('Shougo/denite.nvim')
-    call dein#add('Yggdroot/indentLine')
-    call dein#add('easymotion/vim-easymotion')
-    call dein#add('godlygeek/tabular')
+    call plug#end()
 
-    call dein#end()
-
-    if dein#check_install()
-      call dein#install()
-    endif
-
+    " plugin settings
     let g:airline_powerline_fonts=1
     let g:neomake_c_enable_markers=['clang']
     let g:neomake_c_clang_args = ["-fsyntax-only -Weverything"]
