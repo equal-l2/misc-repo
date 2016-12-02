@@ -14,10 +14,10 @@ if v:version >= 700
     call dein#add('bling/vim-bufferline')
     call dein#add('Shougo/denite.nvim')
     call dein#add('Yggdroot/indentLine')
-    call dein#end()
+    call dein#add('easymotion/vim-easymotion')
+    call dein#add('godlygeek/tabular')
 
-    filetype plugin indent on
-    syntax enable
+    call dein#end()
 
     if dein#check_install()
       call dein#install()
@@ -34,19 +34,23 @@ if v:version >= 700
   endtry
 endif
 
-if !has('nvim')
-  set autoindent
-  set hlsearch
-  set incsearch
-  set laststatus=2
-  set smarttab
-  set mouse=a
-  syntax on
-  
-endif
-
-set list               " show invisible character e.g. tabs or spaces
-set expandtab          " don't use tab, but space
-set shiftwidth=2       " set tab width
-set number             " show line number
+set list                  " show invisible character e.g. tabs or spaces
+set et                    " don't use tab, but space
+set sw=2                  " set tab width
+set nu                    " show line number
+set ru                    " show where line and column cursor is
+set wim=list:longest,full
+set cole=0                " disable concealed text
+set nowrap
 colorscheme pablo
+
+" return to neovim-default
+set wmnu                  " enable wildmenu
+set ai                    " enable autoindent
+set hls                   " enable highlighting matchf
+set is                    " enable incremental search
+set ls=2                  " always show status bar
+set sta                   " enable smart tab
+set mouse=a               " enable mouse for all mode
+sy on                     " enable syntax highlighting
+filetype plugin indent on " enable filetype detection
