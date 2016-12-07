@@ -11,6 +11,7 @@ try
   Plug 'easymotion/vim-easymotion'
   Plug 'godlygeek/tabular'
   Plug 'junegunn/rainbow_parentheses.vim'
+  Plug 'haya14busa/incsearch.vim'
 
   call plug#end()
 
@@ -25,7 +26,10 @@ try
   au! BufReadPost,BufWritePost *.c Neomake
   au! BufReadPost,BufWritePost *.cpp Neomake
   au VimEnter * RainbowParentheses
-cat
+
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
 endt
 
 if has('nvim')
@@ -34,7 +38,8 @@ en
 
 se list                  " show invisible character e.g. tabs or spaces
 se et                    " don't use tab, but space
-se sw=2                  " set tab width
+se sw=2                  " set indent width
+se ts=2                  " set tab width
 se nu                    " show line number
 se ru                    " show where line and column cursor is
 se wim=list:longest,full " wildmenu settings
