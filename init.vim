@@ -2,16 +2,18 @@ try
   " plugin initialization
   call plug#begin('~/.config/nvim/plugged')
 
-  Plug 'vim-airline/vim-airline'
-  Plug 'neomake/neomake'
-  Plug 'tpope/vim-fugitive'
-  Plug 'majutsushi/tagbar'
-  Plug 'bling/vim-bufferline'
   Plug 'Yggdroot/indentLine'
+  Plug 'bling/vim-bufferline'
   Plug 'easymotion/vim-easymotion'
   Plug 'godlygeek/tabular'
-  Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'haya14busa/incsearch.vim'
+  Plug 'junegunn/rainbow_parentheses.vim'
+  Plug 'lifepillar/vim-solarized8'
+  Plug 'majutsushi/tagbar'
+  Plug 'neomake/neomake'
+  Plug 'tpope/vim-fugitive'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 
   call plug#end()
 
@@ -36,28 +38,33 @@ if has('nvim')
   se icm=nosplit
 en
 
-se list                  " show invisible character e.g. tabs or spaces
+se bri                   " apply indent to wrapped line
+se cole=0                " disable concealed text
 se et                    " don't use tab, but space
-se sw=2                  " set indent width
-se ts=2                  " set tab width
+se hid                   " open another buffer even if unsaved changes are
+se list                  " show invisible character e.g. tabs or spaces
 se nu                    " show line number
 se ru                    " show where line and column cursor is
+se sc                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
+se sw=2                  " set indent width
+se ts=2                  " set tab width
 se wim=list:longest,full " wildmenu settings
-se cole=0                " disable concealed text
-se bri                   " apply indent to wrapped line
-se hid                   " open another buffer even if unsaved changes are
 
 if $TERM != 'linux'
-  colorscheme pablo
+  set tgc
+  colorscheme solarized8_dark
+  let g:airline_theme='solarized'
 endif
 
 " return to neovim-default
-se wmnu                   " enable wildmenu
 se ai                     " enable autoindent
+se bs=indent,eol,start    " set backspace behavior
+se dy=lastline            " show long line all
 se hls                    " enable highlighting matchf
 se is                     " enable incremental search
 se ls=2                   " always show status bar
-se sta                    " enable smart tab
 se mouse=a                " enable mouse for all mode
+se sta                    " enable smart tab
+se wmnu                   " enable wildmenu
 sy on                     " enable syntax highlighting
 filetype plugin indent on " enable filetype detection
