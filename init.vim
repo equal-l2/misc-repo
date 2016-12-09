@@ -38,11 +38,12 @@ if has('nvim')
   se icm=nosplit
 en
 
-se bri                   " apply indent to wrapped line
+se bri                   " apply indent to wrapped line (in case of wrap)
 se cole=0                " disable concealed text
 se et                    " don't use tab, but space
-se hid                   " open another buffer even if unsaved changes are
+se hid                   " open another buffer even if unsaved changes exist
 se list                  " show invisible character e.g. tabs or spaces
+se nowrap                " don't wrap
 se nu                    " show line number
 se ru                    " show where line and column cursor is
 se sc                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
