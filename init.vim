@@ -8,7 +8,7 @@ try
   Plug 'godlygeek/tabular'
   Plug 'haya14busa/incsearch.vim'
   Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'lifepillar/vim-solarized8'
+  Plug 'freeo/vim-kalisi'
   Plug 'majutsushi/tagbar'
   Plug 'neomake/neomake'
   Plug 'tpope/vim-fugitive'
@@ -38,6 +38,7 @@ if has('nvim')
   se icm=nosplit
 en
 
+se bg=dark
 se bri                   " apply indent to wrapped line (in case of wrap)
 se cole=0                " disable concealed text
 se et                    " don't use tab, but space
@@ -52,9 +53,8 @@ se ts=2                  " set tab width
 se wim=list:longest,full " wildmenu settings
 
 if $TERM != 'linux'
-  set tgc
-  colorscheme solarized8_dark
-  let g:airline_theme='solarized'
+  colorscheme kalisi
+  let g:airline_theme='kalisi'
 endif
 
 " return to neovim-default
