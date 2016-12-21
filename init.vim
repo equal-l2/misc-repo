@@ -4,14 +4,11 @@ try
 
   Plug 'Yggdroot/indentLine'
   Plug 'bling/vim-bufferline'
-  Plug 'easymotion/vim-easymotion'
   Plug 'godlygeek/tabular'
   Plug 'haya14busa/incsearch.vim'
-  Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'freeo/vim-kalisi'
   Plug 'majutsushi/tagbar'
   Plug 'neomake/neomake'
-  Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
@@ -20,14 +17,17 @@ try
   " plugin setings
   if $TERM != 'linux'
     let g:airline_powerline_fonts=1
+    colorscheme kalisi
+    let g:airline_theme='kalisi'
   en
-  let g:neomake_c_enable_markers = ['clang']
-  let g:neomake_c_clang_args = ["-fsyntax-only", "-Weverything"]
-  let g:neomake_cpp_enable_markers = ['clang']
-  let g:neomake_cpp_clang_args = ["-fsyntax-only", "-std=c++1z", "-Weverything", "-Wno-padded", "-Wno-c++98-compat"]
-  au! BufReadPost,BufWritePost *.c Neomake
-  au! BufReadPost,BufWritePost *.cpp Neomake
-  au VimEnter * RainbowParentheses
+  let g:bufferline_echo=0
+
+  let b:neomake_c_enabled_makers=['clang']
+  let g:neomake_c_clang_args = ['-fsyntax-only', '-std=c11', '-Weverything', '-Wno-padded']
+  let b:neomake_cpp_enabled_makers=['clang']
+  let g:neomake_cpp_clang_args = ['-fsyntax-only', '-std=c++1z', '-Weverything', '-Wno-padded', '-Wno-c++98-compat']
+  let g:neomake_highlight_lines=1
+  au! BufReadPost,BufWritePost * Neomake
 
   map /  <Plug>(incsearch-forward)
   map ?  <Plug>(incsearch-backward)
@@ -39,23 +39,19 @@ if has('nvim')
 en
 
 se bg=dark
-se bri                   " apply indent to wrapped line (in case of wrap)
-se cole=0                " disable concealed text
-se et                    " don't use tab, but space
-se hid                   " open another buffer even if unsaved changes exist
-se list                  " show invisible character e.g. tabs or spaces
-se nowrap                " don't wrap
-se nu                    " show line number
-se ru                    " show where line and column cursor is
-se sc                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
-se sw=2                  " set indent width
-se ts=2                  " set tab width
-se wim=list:longest,full " wildmenu settings
-
-if $TERM != 'linux'
-  colorscheme kalisi
-  let g:airline_theme='kalisi'
-endif
+se bri                    " apply indent to wrapped line (in case of wrap)
+se cole=0                 " disable concealed text
+se et                     " don't use tab, but space
+se hid                    " open another buffer even if unsaved changes exist
+se list                   " show invisible character e.g. tabs or spaces
+se nowrap                 " don't wrap
+se nu                     " show line number
+se ru                     " show where line and column cursor is
+se sc                     " show incomplete command (e.g. show 'y' when hit y key in command mode)
+se sw=2                   " set indent width
+se ts=2                   " set tab width
+se wim=list:longest,full  " wildmenu settings
+se nofixeol               " don't add new line on the end of file
 
 " return to neovim-default
 se ai                     " enable autoindent
