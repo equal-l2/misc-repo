@@ -27,6 +27,7 @@ try
   let b:neomake_cpp_enabled_makers=['clang']
   let g:neomake_cpp_clang_args = ['-fsyntax-only', '-std=c++1z', '-Weverything', '-Wno-padded', '-Wno-c++98-compat']
   let g:neomake_highlight_lines=1
+  let g:neomake_ruby_enabled_makers=[]
   au! BufReadPost,BufWritePost * Neomake
 
   map /  <Plug>(incsearch-forward)
