@@ -11,6 +11,8 @@ try
   Plug 'neomake/neomake'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'rust-lang/rust.vim'
+  Plug 'cespare/vim-toml'
 
   call plug#end()
 
@@ -22,10 +24,8 @@ try
   en
   let g:bufferline_echo=0
 
-  let b:neomake_c_enabled_makers=['clang']
-  let g:neomake_c_clang_args = ['-fsyntax-only', '-std=c11', '-Weverything', '-Wno-padded']
-  let b:neomake_cpp_enabled_makers=['clang']
-  let g:neomake_cpp_clang_args = ['-fsyntax-only', '-std=c++1z', '-Weverything', '-Wno-padded', '-Wno-c++98-compat', '-Wno-c++98-compat-pedantic']
+  let g:neomake_c_clang_args = ['-fsyntax-only', '-std=c11', '-Weverything', '-Wno-padded','-Wno-missing-prototypes']
+  let g:neomake_cpp_clang_args = ['-fsyntax-only', '-std=c++1z', '-Weverything', '-Wno-padded', '-Wno-c++98-compat', '-Wno-c++98-compat-pedantic','-Wno-missing-prototypes']
   let g:neomake_highlight_lines=1
   let g:neomake_ruby_enabled_makers=[]
   au! BufReadPost,BufWritePost * Neomake
@@ -35,6 +35,20 @@ try
   map g/ <Plug>(incsearch-stay)
 endt
 
+" return to neovim-default
+se ai                     " enable autoindent
+se bs=indent,eol,start    " set backspace behavior
+se dy=lastline            " show long line all
+se hls                    " enable highlighting matchf
+se is                     " enable incremental search
+se ls=2                   " always show status bar
+se mouse=a                " enable mouse for all mode
+se sta                    " enable smart tab
+se wmnu                   " enable wildmenu
+sy on                     " enable syntax highlighting
+filetype plugin indent on " enable filetype detection
+
+" preference
 if has('nvim')
   se icm=nosplit
 en
@@ -54,15 +68,3 @@ se ts=2                   " set tab width
 se wim=list:longest,full  " wildmenu settings
 se nofixeol               " don't add new line on the end of file
 
-" return to neovim-default
-se ai                     " enable autoindent
-se bs=indent,eol,start    " set backspace behavior
-se dy=lastline            " show long line all
-se hls                    " enable highlighting matchf
-se is                     " enable incremental search
-se ls=2                   " always show status bar
-se mouse=a                " enable mouse for all mode
-se sta                    " enable smart tab
-se wmnu                   " enable wildmenu
-sy on                     " enable syntax highlighting
-filetype plugin indent on " enable filetype detection
