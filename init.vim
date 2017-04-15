@@ -8,11 +8,10 @@ try
   Plug 'haya14busa/incsearch.vim'
   Plug 'freeo/vim-kalisi'
   Plug 'majutsushi/tagbar'
-  Plug 'neomake/neomake'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'rust-lang/rust.vim'
-  Plug 'cespare/vim-toml'
+  Plug 'w0rp/ale'
 
   call plug#end()
 
@@ -24,11 +23,17 @@ try
   en
   let g:bufferline_echo=0
 
-  let g:neomake_c_clang_args = ['-fsyntax-only', '-std=c11', '-Weverything', '-Wno-padded','-Wno-missing-prototypes']
-  let g:neomake_cpp_clang_args = ['-fsyntax-only', '-std=c++1z', '-Weverything', '-Wno-padded', '-Wno-c++98-compat', '-Wno-c++98-compat-pedantic','-Wno-missing-prototypes']
-  let g:neomake_highlight_lines=1
-  let g:neomake_ruby_enabled_makers=[]
-  au! BufReadPost,BufWritePost * Neomake
+  let g:ale_linters = {
+    \'ruby' : [],
+    \'c'    : ['clang','cppcheck'],
+    \'cpp'  : ['clang','cppcheck']
+  \}
+  let g:ale_lint_delay=1000
+  let g:ale_c_cppcheck_options='--enable=all'
+  let g:ale_cpp_cppcheck_options='--enable=all'
+  let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations'
+  let g:ale_c_clang_options= '-std=c11 ' . s:clang_opt
+  let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opt . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
 
   map /  <Plug>(incsearch-forward)
   map ?  <Plug>(incsearch-backward)
