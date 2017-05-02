@@ -31,7 +31,7 @@ try
   let g:ale_lint_delay=1000
   let g:ale_c_cppcheck_options='--enable=all'
   let g:ale_cpp_cppcheck_options='--enable=all'
-  let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations'
+  let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
   let g:ale_c_clang_options= '-std=c11 ' . s:clang_opt
   let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opt . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
 
@@ -43,14 +43,16 @@ endtry
 " return to neovim-default
 set autoindent                 " enable autoindent
 set backspace=indent,eol,start " set backspace behavior
-set display=lastline           " show long line all
+set display=lastline           " show whole line even for long one
 set hlsearch                   " enable highlighting matchf
 set incsearch                  " enable incremental search
 set laststatus=2               " always show status bar
 set mouse=a                    " enable mouse for all mode
+set ruler                      " show line and column where the cursor is
+set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
 set smarttab                   " enable smart tab
 set wildmenu                   " enable wildmenu
-syntax on                          " enable syntax highlighting
+syntax on                      " enable syntax highlighting
 filetype plugin indent on      " enable filetype detection
 
 " preference
@@ -64,11 +66,9 @@ set conceallevel=0             " disable concealed text
 set expandtab                  " don't use tab, but space
 set hidden                     " open another buffer even if unsaved changes exist
 set list                       " show invisible character e.g. tabs or spaces
-set nowrap                     " don't wrap
+set nowrap                     " do not wrap
 set number                     " show line number
-set ruler                      " show where line and column cursor is
-set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
 set shiftwidth=2               " set indent width
 set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
-set nofixeol                   " don't add new line on the end of file
+set nofixeol                   " do not add new line on the end of file
