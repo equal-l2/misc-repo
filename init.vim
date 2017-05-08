@@ -4,14 +4,14 @@ try
 
   Plug 'Yggdroot/indentLine'
   Plug 'bling/vim-bufferline'
+  Plug 'freeo/vim-kalisi'
   Plug 'godlygeek/tabular'
   Plug 'haya14busa/incsearch.vim'
-  Plug 'freeo/vim-kalisi'
   Plug 'majutsushi/tagbar'
   Plug 'mattn/emmet-vim'
+  Plug 'rust-lang/rust.vim'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'rust-lang/rust.vim'
   Plug 'w0rp/ale'
 
   call plug#end()
@@ -67,9 +67,9 @@ set conceallevel=0             " disable concealed text
 set expandtab                  " don't use tab, but space
 set hidden                     " open another buffer even if unsaved changes exist
 set list                       " show invisible character e.g. tabs or spaces
+set nofixeol                   " do not add new line on the end of file
 set nowrap                     " do not wrap
 set number                     " show line number
 set shiftwidth=2               " set indent width
 set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
-set nofixeol                   " do not add new line on the end of file
