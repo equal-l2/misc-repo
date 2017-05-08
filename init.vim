@@ -8,6 +8,7 @@ try
   Plug 'haya14busa/incsearch.vim'
   Plug 'freeo/vim-kalisi'
   Plug 'majutsushi/tagbar'
+  Plug 'mattn/emmet-vim'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'rust-lang/rust.vim'
