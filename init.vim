@@ -1,45 +1,52 @@
-try
-  " plugin initialization
-  call plug#begin('~/.config/nvim/plugged')
+if &compatible
+  set nocompatible
+endif
 
-  Plug 'Yggdroot/indentLine'
-  Plug 'bling/vim-bufferline'
-  Plug 'freeo/vim-kalisi'
-  Plug 'godlygeek/tabular'
-  Plug 'haya14busa/incsearch.vim'
-  Plug 'majutsushi/tagbar'
-  Plug 'mattn/emmet-vim'
-  Plug 'rust-lang/rust.vim'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'w0rp/ale'
+" plugin initialization
+call plug#begin('~/.config/nvim/plugged')
 
-  call plug#end()
+Plug 'Yggdroot/indentLine'
+Plug 'bling/vim-bufferline'
+Plug 'easymotion/vim-easymotion'
+Plug 'freeo/vim-kalisi'
+Plug 'godlygeek/tabular'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'haya14busa/incsearch.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 
-  " plugin setings
-  if $TERM != 'linux'
-    let g:airline_powerline_fonts=1
-    colorscheme kalisi
-    let g:airline_theme='kalisi'
-  end
-  let g:bufferline_echo=0
+call plug#end()
 
-  let g:ale_linters = {
-    \'ruby' : [],
-    \'c'    : ['clang','cppcheck'],
-    \'cpp'  : ['clang','cppcheck']
-  \}
-  let g:ale_lint_delay=1000
-  let g:ale_c_cppcheck_options='--enable=all'
-  let g:ale_cpp_cppcheck_options='--enable=all'
-  let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
-  let g:ale_c_clang_options= '-std=c11 ' . s:clang_opt
-  let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opt . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+" plugin setings
+if $TERM != 'linux'
+  let g:airline_powerline_fonts=1
+  colorscheme kalisi
+  let g:airline_theme='kalisi'
+end
+let g:bufferline_echo=0
 
-  map /  <Plug>(incsearch-forward)
-  map ?  <Plug>(incsearch-backward)
-  map g/ <Plug>(incsearch-stay)
-endtry
+let g:ale_linters = {
+      \'ruby' : [],
+      \'c'    : ['clang','cppcheck'],
+      \'cpp'  : ['clang','cppcheck']
+      \}
+let g:ale_lint_delay=1000
+let g:ale_c_cppcheck_options='--enable=all'
+let g:ale_cpp_cppcheck_options='--enable=all'
+let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
+let g:ale_c_clang_options= '-std=c11 ' . s:clang_opt
+let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opt . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+nnoremap <CR> <ESC>i<CR><ESC>  " insert <CR>
 
 " return to neovim-default
 set autoindent                 " enable autoindent
@@ -59,7 +66,7 @@ filetype plugin indent on      " enable filetype detection
 " preference
 if has('nvim')
   set inccommand=nosplit
-en
+endif
 
 set background=dark
 set breakindent                " apply indent to wrapped line (in case of wrap)
@@ -73,3 +80,4 @@ set number                     " show line number
 set shiftwidth=2               " set indent width
 set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
+set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
