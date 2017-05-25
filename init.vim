@@ -3,7 +3,7 @@ if &compatible
 endif
 
 " plugin initialization
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin()
 
 Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-bufferline'
