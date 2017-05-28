@@ -12,8 +12,11 @@ Plug 'godlygeek/tabular'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jreybert/vimagit'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
+Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
 Plug 'rust-lang/rust.vim'
 Plug 'valloric/YouCompleteMe',{'do': './install.py --racer-completer --clang-completer'}
@@ -29,7 +32,6 @@ if $TERM != 'linux'
   colorscheme kalisi
   let g:airline_theme='kalisi'
 end
-let g:bufferline_echo=0
 
 let g:ale_linters = {
       \'ruby' : [],
@@ -43,15 +45,18 @@ let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing
 let g:ale_c_clang_options= '-std=c11 ' . s:clang_opt
 let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opt . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
 
+let g:bufferline_echo=0
+
+let g:peekaboo_window='vert bo new'
+
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-nnoremap <CR> <ESC>i<CR><ESC>  " insert <CR>
-
 " return to neovim-default
 set autoindent                 " enable autoindent
 set backspace=indent,eol,start " set backspace behavior
+set belloff=all                " don't ring a bell
 set display=lastline           " show whole line even for long one
 set hlsearch                   " enable highlighting matchf
 set incsearch                  " enable incremental search
