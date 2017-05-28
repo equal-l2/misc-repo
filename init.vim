@@ -7,15 +7,16 @@ call plug#begin()
 
 Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-bufferline'
-Plug 'easymotion/vim-easymotion'
 Plug 'freeo/vim-kalisi'
 Plug 'godlygeek/tabular'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'haya14busa/incsearch.vim'
+Plug 'jreybert/vimagit'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-signify'
 Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-fugitive'
+Plug 'valloric/YouCompleteMe',{'do': './install.py --racer-completer --clang-completer'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
