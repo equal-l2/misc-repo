@@ -12,6 +12,9 @@ fpath+=~/.zfunc
 compinit
 # End of lines added by compinstall
 
+autoload -U zmv
+export ZSH_AUTOSUGGEST_USE_ASYNC
+export ZSH_AUTOSUGGEST_STRATEGY='match_prev_cmd'
 export EDITOR=nvim
 export PATH=$PATH:/usr/local/sbin:~/bin
 export JAVA_HOME=`/usr/libexec/java_home`
@@ -24,3 +27,4 @@ source  ~/.zsh/powerlevel9k/powerlevel9k.zsh-theme
 source  ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export RUST_BACKTRACE=full
+eval $(docker-machine env)
