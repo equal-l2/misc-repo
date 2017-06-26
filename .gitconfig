@@ -1,0 +1,8 @@
+[user]
+	name = equal-l2
+	email = eng.equall2@gmail.com
+[alias]
+	co = checkout
+[core]
+	preloadindex = true
+	fscache = true
