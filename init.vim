@@ -70,6 +70,16 @@ let g:racer_experimental_completer = 1
 " vimtex settings
 let g:vimtex_enabled=1
 let g:vimtex_compiler_method='latexrun'
+let g:vimtex_compiler_latexrun = {
+      \ 'backend' : 'nvim',
+      \ 'background' : 1,
+      \ 'build_dir' : '',
+      \ 'options' : [
+      \   '--verbose-cmds',
+      \   '--latex-cmd="xelatex"',
+      \   '--latex-args="-synctex=1"',
+      \ ],
+      \}
 
 " YouCompleteMe settings
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
@@ -106,14 +116,14 @@ set background=dark
 set breakindent                " apply indent to wrapped line (in case of wrap)
 set conceallevel=0             " disable concealed text
 set expandtab                  " don't use tab, but space
+set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set hidden                     " open another buffer even if unsaved changes exist
 set list                       " show invisible character e.g. tabs or spaces
-set omnifunc=syntaxcomplete#Complete
 set nofixeol                   " do not add new line on the end of file
 set nowrap                     " do not wrap
 set number                     " show line number
+set omnifunc=syntaxcomplete#Complete
 set shiftwidth=2               " set indent width
 set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
-set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
