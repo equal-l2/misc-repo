@@ -32,6 +32,7 @@ Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-signify'
 Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
+Plug 'udalov/kotlin-vim'
 Plug 'valloric/YouCompleteMe',{'do': './install.py --clang-completer'}
 Plug 'w0rp/ale'
 
