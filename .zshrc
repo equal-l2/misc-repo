@@ -7,11 +7,11 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _complete _correct _approximate
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' menu select interactive
+zstyle ':completion:*' menu true select
 zstyle ':completion:*' use-cache true
 zstyle :compinstall filename '~/.zshrc'
-setopt menu_complete
 setopt magic_equal_subst
+setopt glob_dots
 
 autoload -Uz compinit
 fpath+=~/.zfunc
