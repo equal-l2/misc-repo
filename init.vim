@@ -69,18 +69,17 @@ let g:racer_cmd = "~/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
 
 " vimtex settings
-let g:vimtex_enabled=1
 let g:vimtex_compiler_method='latexrun'
 let g:vimtex_compiler_latexrun = {
-      \ 'backend' : 'nvim',
-      \ 'background' : 1,
-      \ 'build_dir' : '',
-      \ 'options' : [
-      \   '--verbose-cmds',
-      \   '--latex-cmd="xelatex"',
-      \   '--latex-args="-synctex=1"',
-      \ ],
-      \}
+\ 'backend' : has('nvim') ? 'nvim'
+\                         : v:version >= 800 ? 'jobs' : 'process',
+\ 'background' : 1,
+\ 'build_dir' : '',
+\ 'options' : [
+\   '--verbose-cmds',
+\   '--latex-cmd=xelatex',
+\ ],
+\}
 
 " YouCompleteMe settings
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
