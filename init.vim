@@ -114,7 +114,7 @@ endif
 
 set background=dark
 set breakindent                " apply indent to wrapped line (in case of wrap)
-set conceallevel=0             " disable concealed text (auto-convert of special character)
+set conceallevel=0             " disable concealed text
 set expandtab                  " don't use tab, but space
 set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set hidden                     " open another buffer even if unsaved changes exist
@@ -128,4 +128,3 @@ set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType php setlocal autoindent
-autocmd FileType * setlocal conceallevel=0
