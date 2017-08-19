@@ -3,6 +3,9 @@
 	email = eng.equall2@gmail.com
 [alias]
 	co = checkout
+	con = config
+	cl = clone
+	br = branch
 [core]
 	preloadindex = true
 	fscache = true
