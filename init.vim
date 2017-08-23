@@ -49,7 +49,8 @@ end
 let g:ale_linters = {
       \'ruby' : [],
       \'c'    : ['clang','cppcheck'],
-      \'cpp'  : ['clang','cppcheck']
+      \'cpp'  : ['clang','cppcheck'],
+      \'python'  : ['flake8']
       \}
 let g:ale_lint_delay=1000
 let g:ale_c_cppcheck_options='--enable=all'
