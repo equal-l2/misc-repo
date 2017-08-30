@@ -129,3 +129,4 @@ set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType php setlocal autoindent
+autocmd FileType kotlin setlocal shiftwidth=4
