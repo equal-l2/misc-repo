@@ -23,7 +23,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " For integration
-Plug 'artur-shaik/vim-javacomplete2'
 Plug 'cespare/vim-toml'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'jreybert/vimagit'
