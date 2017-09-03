@@ -2,10 +2,11 @@
 	name = equal-l2
 	email = eng.equall2@gmail.com
 [alias]
+	br = branch
+	cl = clone
 	co = checkout
 	con = config
-	cl = clone
-	br = branch
+	st = status
 [core]
 	preloadindex = true
 	fscache = true
