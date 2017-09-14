@@ -7,7 +7,6 @@ call plug#begin()
 
 " Plugins
 " For vim improvement
-Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-bufferline'
 Plug 'freeo/vim-kalisi'
 Plug 'godlygeek/tabular'
@@ -90,6 +89,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 let g:tex_flavor='latex'
+let g:tex_conceal=''
 
 " return to neovim-default
 set autoindent                 " enable autoindent
