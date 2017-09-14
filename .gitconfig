@@ -1,12 +1,17 @@
-[user]
-	name = equal-l2
-	email = eng.equall2@gmail.com
 [alias]
-	br = branch
-	cl = clone
-	co = checkout
-	con = config
-	st = status
+  br = branch
+  cl = clone
+  co = checkout
+  con = config
+  st = status -sb
 [core]
-	preloadindex = true
-	fscache = true
+  preloadindex = true
+  fscache = true
+[diff]
+  algorithm = histogram
+[diff "sqlite3"]
+  binary = true
+  textconv = "echo .dump | sqlite3"
+[user]
+  name = equal-l2
+  email = eng.equall2@gmail.com
