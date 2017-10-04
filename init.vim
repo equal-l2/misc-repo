@@ -117,6 +117,8 @@ set breakindent                " apply indent to wrapped line (in case of wrap)
 set conceallevel=0             " disable concealed text
 set expandtab                  " don't use tab, but space
 set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
+set foldmethod=indent
+set foldlevel=100
 set hidden                     " open another buffer even if unsaved changes exist
 set list                       " show invisible character e.g. tabs or spaces
 set nofixeol                   " do not add new line on the end of file
