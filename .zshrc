@@ -7,7 +7,6 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _complete _correct _approximate
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' menu true select
 zstyle ':completion:*' use-cache true
 zstyle :compinstall filename '~/.zshrc'
 setopt magic_equal_subst
@@ -31,3 +30,4 @@ else
 fi
 source  ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.env.zsh
+
