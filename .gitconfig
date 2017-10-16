@@ -4,6 +4,7 @@
   co = checkout
   con = config
   st = status -sb
+  pull-upstream-master = pull upstream master
 [core]
   preloadindex = true
   fscache = true
