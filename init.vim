@@ -21,16 +21,18 @@ Plug 'enricobacis/vim-airline-clock'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" For integration
+" For syntax highlighting
 Plug 'cespare/vim-toml'
+Plug 'fatih/vim-go'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'jreybert/vimagit'
 Plug 'lervag/vimtex'
+Plug 'rust-lang/rust.vim'
+Plug 'udalov/kotlin-vim'
+
+" For misc. improvement
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-signify'
 Plug 'racer-rust/vim-racer'
-Plug 'rust-lang/rust.vim'
-Plug 'udalov/kotlin-vim'
 Plug 'valloric/YouCompleteMe',{'do': './install.py --clang-completer'}
 Plug 'w0rp/ale'
 
