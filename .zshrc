@@ -21,9 +21,7 @@ export PATH=~/bin:/usr/local/opt/php71/bin:/usr/local/opt/php71/sbin:/usr/local/
 export RUST_BACKTRACE=1
 export RUST_SRC_PATH=~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 export JAVA_HOME=`/usr/libexec/java_home`
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable background_jobs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs status)
-
-source  ~/.zsh/powerlevel9k/powerlevel9k.zsh-theme
+PROMPT=$'
+%{\e[7m%}[ %~ : %(?.%{\e[32m%}.%{\e[31m%})Status %?%{\e[0m\e[7m%}%1(j. : Job(s) %j.) ]%{\e[0m%}
+%# '
 source  ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
