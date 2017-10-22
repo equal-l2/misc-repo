@@ -27,4 +27,3 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs status)
 
 source  ~/.zsh/powerlevel9k/powerlevel9k.zsh-theme
 source  ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
