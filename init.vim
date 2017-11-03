@@ -39,7 +39,6 @@ call plug#end()
 
 " airline setings
 if $TERM != 'linux'
-  let g:airline_powerline_fonts=1
   colorscheme kalisi
   let g:airline_theme='kalisi'
 end
@@ -92,12 +91,12 @@ let g:tex_conceal=''
 set autoindent                 " enable autoindent
 set backspace=indent,eol,start " set backspace behavior
 set belloff=all                " don't ring a bell
-set display=lastline           " show whole line even for long one
-set hlsearch                   " enable highlighting matchf
+set display=lastline           " show the whole line even for long one
+set hlsearch                   " enable highlighting match
 set incsearch                  " enable incremental search
 set laststatus=2               " always show status bar
 set mouse=a                    " enable mouse for all mode
-set ruler                      " show line and column where the cursor is
+set ruler                      " show number of line and column where the cursor is
 set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
 set smarttab                   " enable smart tab
 set wildmenu                   " enable wildmenu
@@ -112,7 +111,7 @@ endif
 set background=dark
 set breakindent                " apply indent to wrapped line (in case of wrap)
 set conceallevel=0             " disable concealed text
-set expandtab                  " don't use tab, but space
+set expandtab                  " don't use tab, but use space
 set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set foldmethod=indent
 set foldlevel=100
@@ -123,8 +122,7 @@ set nowrap                     " do not wrap
 set number                     " show line number
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=2               " set indent width
-set tabstop=2                  " set tab width
 set wildmode=list:longest,full " wildmenu settings
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 autocmd FileType php setlocal autoindent
 autocmd FileType kotlin setlocal shiftwidth=4
