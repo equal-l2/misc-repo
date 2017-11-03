@@ -32,7 +32,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-signify'
 Plug 'racer-rust/vim-racer'
-Plug 'valloric/YouCompleteMe',{'do': './install.py --clang-completer'}
+Plug 'valloric/YouCompleteMe',{'do': './install.py'}
 Plug 'w0rp/ale'
 
 call plug#end()
@@ -81,7 +81,6 @@ let g:vimtex_compiler_latexrun = {
 \}
 
 " YouCompleteMe settings
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_python_binary_path='python3'
 
 let g:tex_flavor='latex'
