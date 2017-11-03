@@ -10,7 +10,6 @@ call plug#begin()
 Plug 'bling/vim-bufferline'
 Plug 'freeo/vim-kalisi'
 Plug 'godlygeek/tabular'
-Plug 'haya14busa/incsearch.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
@@ -85,10 +84,6 @@ let g:vimtex_compiler_latexrun = {
 " YouCompleteMe settings
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_python_binary_path='python3'
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 let g:tex_flavor='latex'
 let g:tex_conceal=''
