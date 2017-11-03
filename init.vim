@@ -46,16 +46,14 @@ end
 " ale settings
 let g:ale_linters = {
       \'ruby' : [],
-      \'c'    : ['clang','cppcheck'],
-      \'cpp'  : ['clang','cppcheck'],
+      \'cpp'  : ['clang'],
+      \'c'    : ['clang'],
       \'python'  : ['flake8']
       \}
 let g:ale_lint_delay=1000
-let g:ale_c_cppcheck_options='--enable=all'
-let g:ale_cpp_cppcheck_options='--enable=all'
-let s:clang_opt = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
-let g:ale_c_clang_options= '-std=c11 ' . s:clang_opt
-let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opt . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
+let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
+let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
 
 " bufferline setting
 let g:bufferline_echo=0
