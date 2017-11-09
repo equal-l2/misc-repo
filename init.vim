@@ -33,6 +33,11 @@ Plug 'mhinz/vim-signify'
 Plug 'racer-rust/vim-racer'
 Plug 'w0rp/ale'
 
+" Trying
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
+Plug 'lambdalisue/gina.vim'
+
 call plug#end()
 
 " airline setings
