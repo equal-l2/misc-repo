@@ -103,6 +103,7 @@ endif
 set background=dark
 set breakindent                " apply indent to wrapped line (in case of wrap)
 set conceallevel=0             " disable concealed text
+set cursorline                 " hightlight the line where cursor is
 set expandtab                  " don't use tab, but use space
 set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set foldmethod=indent
