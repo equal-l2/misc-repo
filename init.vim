@@ -16,7 +16,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 
 " For pretty statusline
-Plug 'enricobacis/vim-airline-clock'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -32,7 +31,6 @@ Plug 'udalov/kotlin-vim'
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-signify'
 Plug 'racer-rust/vim-racer'
-Plug 'valloric/YouCompleteMe',{'do': './install.py'}
 Plug 'w0rp/ale'
 
 call plug#end()
@@ -77,9 +75,6 @@ let g:vimtex_compiler_latexrun = {
 \   '--latex-cmd=xelatex',
 \ ],
 \}
-
-" YouCompleteMe settings
-let g:ycm_python_binary_path='python3'
 
 let g:tex_flavor='latex'
 let g:tex_conceal=''
