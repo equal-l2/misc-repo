@@ -104,7 +104,7 @@ filetype plugin indent on      " enable filetype detection
 
 " preference
 if has('nvim')
-  set inccommand=nosplit
+  set inccommand=nosplit       " show result for replacing incrementally
 endif
 
 set background=dark
@@ -116,7 +116,8 @@ set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set foldmethod=indent
 set foldlevel=100
 set hidden                     " open another buffer even if unsaved changes exist
-set list                       " show invisible character e.g. tabs or spaces
+set list                       " show invisible character like tabs or spaces
+set matchpairs+=<:>            " match brokets
 set nofixeol                   " do not add new line on the end of file
 set nowrap                     " do not wrap
 set number                     " show line number
