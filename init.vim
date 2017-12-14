@@ -37,6 +37,8 @@ Plug 'w0rp/ale'
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'lambdalisue/gina.vim'
+Plug 'vim-jp/vital.vim'
+Plug 'equal-l2/vim-base64'
 
 call plug#end()
 
