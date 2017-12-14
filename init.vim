@@ -86,7 +86,7 @@ let g:vimtex_compiler_latexrun = {
 let g:tex_flavor='latex'
 let g:tex_conceal=''
 
-" return to neovim-default
+" use neovim's default configuration
 set autoindent                 " enable autoindent
 set backspace=indent,eol,start " set backspace behavior
 set belloff=all                " don't ring a bell
@@ -99,6 +99,7 @@ set mouse=a                    " enable mouse for all mode
 set ruler                      " show number of line and column where the cursor is
 set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
 set smarttab                   " enable smart tab
+set tags="./tags;,tags"        " set tag file location
 set ttyfast                    " assume fast terminal connection
 set wildmenu                   " enable wildmenu
 syntax on                      " enable syntax highlighting
@@ -107,6 +108,7 @@ filetype plugin indent on      " enable filetype detection
 " preference
 if has('nvim')
   set inccommand=nosplit       " show result for replacing incrementally
+  tnoremap <silent> <ESC> <C-\><C-n>
 endif
 
 set background=dark
