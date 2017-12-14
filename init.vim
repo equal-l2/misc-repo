@@ -65,7 +65,7 @@ let g:bufferline_echo=0
 let g:peekaboo_window='vert bo new'
 
 " vim-racer settings
-let g:racer_cmd = "~/.cargo/bin/racer"
+let g:racer_cmd = '~/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
 
 " vimtex settings
