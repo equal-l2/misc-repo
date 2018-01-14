@@ -14,7 +14,10 @@ fpath+=~/.zfunc
 compinit
 
 autoload -U zmv
+setopt correct
+
 export EDITOR=nvim
+export MANPAGER="nvim -c 'set ft=man' -"
 alias ls='exa -aF'
 export LANG=en_US.UTF-8
 export PATH=~/bin:/usr/local/opt/php71/bin:/usr/local/opt/php71/sbin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:$PATH
