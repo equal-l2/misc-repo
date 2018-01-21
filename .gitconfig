@@ -1,20 +1,21 @@
+# vim: noexpandtab softtabstop=0 shiftwidth=8
 [alias]
-  br = branch
-  cl = clone
-  co = checkout
-  con = config
-  st = status -sb
-  pull-upstream-master = pull upstream master
+	br = branch
+	cl = clone
+	co = checkout
+	con = config
+	st = status -sb
+	pull-upstream-master = pull upstream master
 [core]
-  preloadindex = true
-  fscache = true
+	preloadindex = true
+	fscache = true
 [diff]
-  algorithm = histogram
+	algorithm = histogram
 [diff "sqlite3"]
-  binary = true
-  textconv = "echo .dump | sqlite3"
+	binary = true
+	textconv = "echo .dump | sqlite3"
 [user]
-  name = equal-l2
-  email = eng.equall2@gmail.com
+	name = equal-l2
+	email = eng.equall2@gmail.com
 [hub]
-  protocol = https
+	protocol = https
