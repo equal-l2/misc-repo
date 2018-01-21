@@ -9,8 +9,10 @@
 [core]
 	preloadindex = true
 	fscache = true
+	excludesfile = ~/.gitignore
 [diff]
 	algorithm = histogram
+	colorMoved = true
 [diff "sqlite3"]
 	binary = true
 	textconv = "echo .dump | sqlite3"
