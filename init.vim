@@ -26,11 +26,12 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'keith/swift.vim'
 
 " For misc. improvement
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-signify'
-Plug 'racer-rust/vim-racer'
 Plug 'w0rp/ale'
 
 " Trying
@@ -50,25 +51,21 @@ end
 
 " ale settings
 let g:ale_linters = {
-      \'ruby' : [],
-      \'cpp'  : ['clang'],
       \'c'    : ['clang'],
-      \'python'  : ['flake8']
+      \'cpp'  : ['clang'],
+      \'python'  : ['flake8'],
+      \'ruby' : [],
       \}
-let g:ale_lint_delay=1000
+let g:ale_lint_delay=3500
 let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
 let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
-let g:ale_cpp_clang_options='-std=c++1z ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
 
 " bufferline setting
 let g:bufferline_echo=0
 
 " peekaboo setting
 let g:peekaboo_window='vert bo new'
-
-" vim-racer settings
-let g:racer_cmd = '~/.cargo/bin/racer'
-let g:racer_experimental_completer = 1
 
 " vimtex settings
 let g:vimtex_compiler_method='latexrun'
