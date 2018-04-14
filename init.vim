@@ -1,8 +1,9 @@
+" unset compatible mode
 if &compatible
   set nocompatible
 endif
 
-" plugin initialization
+" vim-plug initialization
 call plug#begin()
 
 " Plugins
@@ -41,13 +42,8 @@ Plug 'lambdalisue/gina.vim'
 Plug 'vim-jp/vital.vim'
 Plug 'equal-l2/vim-base64'
 
+" finalize plugin loading
 call plug#end()
-
-" airline setings
-if $TERM != 'linux'
-  colorscheme kalisi
-  let g:airline_theme='kalisi'
-end
 
 " ale settings
 let g:ale_linters = {
@@ -79,6 +75,14 @@ let g:vimtex_compiler_latexrun = {
 \   '--latex-cmd=xelatex',
 \ ],
 \}
+
+" turn off fancy color feature on linux vga terminal
+" it supports only 8 colors
+if $TERM != 'linux'
+  set termguicolors
+  colorscheme kalisi
+  let g:airline_theme='kalisi'
+end
 
 let g:tex_flavor='latex'
 let g:tex_conceal=''
