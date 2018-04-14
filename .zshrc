@@ -16,6 +16,8 @@ compinit
 autoload -U zmv
 setopt correct
 
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
 export MANPAGER="nvim -c 'set ft=man' -"
 alias ls='exa -aFs Extension'
@@ -26,10 +28,12 @@ export JAVA_HOME=`/usr/libexec/java_home`
 PROMPT=$'
 %{\e[7m%}[ %~ : %(?.%{\e[32m%}.%{\e[31m%})Status %?%{\e[0m\e[7m%}%1(j. : Job(s) %j.) ]%{\e[0m%}
 %# '
-source  ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source  /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
