@@ -64,19 +64,6 @@ let g:bufferline_echo=0
 " peekaboo setting
 let g:peekaboo_window='vert bo new'
 
-" vimtex settings
-let g:vimtex_compiler_method='latexrun'
-let g:vimtex_compiler_latexrun = {
-\ 'backend' : has('nvim') ? 'nvim'
-\                         : v:version >= 800 ? 'jobs' : 'process',
-\ 'background' : 1,
-\ 'build_dir' : '',
-\ 'options' : [
-\   '--verbose-cmds',
-\   '--latex-cmd=xelatex',
-\ ],
-\}
-
 " turn off fancy color feature on linux vga terminal
 " it supports only 8 colors
 if $TERM != 'linux'
