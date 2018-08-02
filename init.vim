@@ -120,6 +120,7 @@ set wildmode=list:longest,full " wildmenu settings
 
 autocmd FileType php setlocal autoindent
 autocmd FileType kotlin setlocal shiftwidth=4
+autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufWrite *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" <bar> redraw!
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
