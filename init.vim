@@ -10,8 +10,6 @@ call plug#begin()
 " For vim improvement
 Plug 'bling/vim-bufferline'
 Plug 'freeo/vim-kalisi'
-Plug 'godlygeek/tabular'
-Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
@@ -110,7 +108,7 @@ set foldmethod=indent
 set foldlevel=100
 set hidden                     " open another buffer even if unsaved changes exist
 set list                       " show invisible character like tabs or spaces
-set matchpairs+=<:>            " match brokets
+set matchpairs+=<:>            " match brackets
 set nofixeol                   " do not add new line on the end of file
 set nowrap                     " do not wrap
 set number                     " show line number
@@ -121,6 +119,4 @@ set wildmode=list:longest,full " wildmenu settings
 autocmd FileType php setlocal autoindent
 autocmd FileType kotlin setlocal shiftwidth=4
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-autocmd BufWrite *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" <bar> redraw!
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
