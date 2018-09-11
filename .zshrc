@@ -15,12 +15,15 @@ zstyle ':completion:*' use-cache true
 zstyle :compinstall filename '~/.zshrc'
 setopt magic_equal_subst
 setopt glob_dots
+setopt auto_pushd
+setopt pushd_to_home
 
 autoload -Uz compinit
 fpath+=~/.zfunc
 compinit
 
 autoload -U zmv
+bindkey -e
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -35,3 +38,4 @@ PROMPT=$'
 %{\e[7m%}[ %~ : %(?.%{\e[32m%}.%{\e[31m%})Status %?%{\e[0m\e[7m%}%1(j. : Job(s) %j.) ]%{\e[0m%}
 %# '
 
+eval "$(thefuck --alias fixit)"
