@@ -11,13 +11,12 @@
 	fscache = true
 	excludesfile = ~/.gitignore
 [diff]
-	algorithm = histogram
 	colorMoved = true
 [diff "sqlite3"]
 	binary = true
 	textconv = "echo .dump | sqlite3"
 [user]
-	name = equal-l2
-	email = eng.equall2@gmail.com
+	name = "equal-l2"
+	email = "eng.equall2@gmail.com"
 [hub]
 	protocol = https
