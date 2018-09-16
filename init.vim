@@ -28,6 +28,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'keith/swift.vim'
 Plug 'aklt/plantuml-syntax'
+Plug 'dag/vim-fish'
 
 " For misc. improvement
 Plug 'mattn/emmet-vim'
