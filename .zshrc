@@ -35,10 +35,10 @@ export RUST_BACKTRACE=1
 export RUSTFLAGS='-C linker=rust-lld -Z linker-flavor=ld64.lld'
 export RUST_SRC_PATH=~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 export JAVA_HOME=`/usr/libexec/java_home`
-PROMPT=$'
-%{\e[7m%}[ %~ : %(?.%{\e[32m%}.%{\e[31m%})Status %?%{\e[0m\e[7m%}%1(j. : Job(s) %j.) ]%{\e[0m%}
+PS1=$'
+\e[7m[ %~ : \e[3%(?.2m.1m)Status %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m
 %# '
 
 eval "$(thefuck --alias fixit)"
 [[ $- != *i* ]] && return
-[[ -z "$TMUX" ]] && exec tmux
+[[ -n "$TMUX" ]] || exec tmux
