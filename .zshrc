@@ -32,6 +32,7 @@ export MANPAGER="nvim -c 'set ft=man' -"
 alias ls='exa -aFs Extension'
 export PATH=~/clogsys:~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:/opt/metasploit-framework/bin/:$PATH
 export RUST_BACKTRACE=1
+export RUSTFLAGS='-C linker=rust-lld -Z linker-flavor=ld64.lld'
 export RUST_SRC_PATH=~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 export JAVA_HOME=`/usr/libexec/java_home`
 PROMPT=$'
