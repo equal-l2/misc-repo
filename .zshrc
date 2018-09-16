@@ -40,3 +40,5 @@ PROMPT=$'
 %# '
 
 eval "$(thefuck --alias fixit)"
+[[ $- != *i* ]] && return
+[[ -z "$TMUX" ]] && exec tmux
