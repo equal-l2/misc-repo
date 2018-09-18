@@ -8,8 +8,46 @@ set -x RUSTFLAGS '-C linker=rust-lld -Z linker-flavor=ld64.lld'
 set -x RUST_SRC_PATH ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
 set -x JAVA_HOME `/usr/libexec/java_home`
-set -x PATH ~/clogsys ~/bin /usr/local/sbin /usr/local/opt/texinfo/bin ~/go/bin /opt/metasploit-framework/bin/ $PATH
+set -x PATH ~/clogsys ~/bin /usr/local/sbin /usr/local/opt/texinfo/bin ~/go/bin /opt/metasploit-framework/bin/ ~/.cargo/bin /usr/local/bin $PATH
 alias ls 'exa -aFs Extension'
+
+set fish_greeting
+set fish_prompt_pwd_dir_length 0
+
+function fish_prompt --description "My own prompt!"
+  set -l last_status $status
+  set -l suffix
+  switch "$USER"
+    case root toor
+      set suffix '#'
+    case '*'
+      set suffix '%'
+  end
+
+  set -l statstr '\e[3'
+  if test $last_status -eq 0
+      set statstr (string join '' $statstr 2)
+  else
+      set statstr (string join '' $statstr 1)
+  end
+  set statstr (string join '' $statstr "mStatus $last_status\e[39m")
+
+  set -l jobcnt (count (jobs))
+  set -l job ' : Job'
+  if test $jobcnt -ne 0
+    if test $jobcnt -gt 1
+      set job (string join '' $job 's')
+    end
+    set job (string join '' $job " $jobcnt ")
+  else
+    set job ''
+  end
+
+
+  echo -e '\n\e[7m[ '(prompt_pwd)" : $statstr $job]\e[m\n$suffix "
+end
+
+thefuck --alias fixit | source
 
 if status is-interactive
 and not set -q TMUX
