@@ -2,6 +2,7 @@ set -x EDITOR nvim
 set -x MANPAGER "nvim -c 'set ft=man' -"
 
 set -x RUST_BACKTRACE 1
+set -x PATH ~/.cargo/bin $PATH
 alias ls 'exa -aFs Extension'
 
 set fish_greeting
@@ -44,5 +45,3 @@ if status is-interactive
 and not set -q TMUX
     exec tmux
 end
-
-source ~/local_macos.fish
