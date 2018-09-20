@@ -63,9 +63,9 @@ let g:bufferline_echo=0
 " peekaboo setting
 let g:peekaboo_window='vert bo new'
 
-" turn off fancy color feature on linux vga terminal
-" it supports only 8 colors
-if $TERM != 'linux'
+if $COLORTERM != 'truecolor'
+  set notermguicolors
+else
   set termguicolors
   colorscheme kalisi
   let g:airline_theme='kalisi'
