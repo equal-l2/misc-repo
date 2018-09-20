@@ -40,8 +40,6 @@ function fish_prompt --description "My own prompt!"
   echo -e '\n\e[7m[ '(prompt_pwd)" : $statstr $job]\e[m\n$suffix "
 end
 
-thefuck --alias fixit | source
-
 if status is-interactive
 and not set -q TMUX
     exec tmux
