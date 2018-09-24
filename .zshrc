@@ -38,7 +38,3 @@ export JAVA_HOME=`/usr/libexec/java_home`
 PS1=$'
 \e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m
 %# '
-
-eval "$(thefuck --alias fixit)"
-[[ $- != *i* ]] && return
-[[ -n "$TMUX" ]] || exec tmux
