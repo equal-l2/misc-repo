@@ -71,3 +71,5 @@ function fish_prompt --description "My own prompt!"
       echo '% '
   end
 end
+
+source ~/local_config.fish
