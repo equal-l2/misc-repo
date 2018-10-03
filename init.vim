@@ -1,6 +1,6 @@
 " unset compatible mode
 if &compatible
-  set nocompatible
+    set nocompatible
 endif
 
 " vim-plug initialization
@@ -10,13 +10,9 @@ call plug#begin()
 " For vim improvement
 Plug 'bling/vim-bufferline'
 Plug 'freeo/vim-kalisi'
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-peekaboo'
-Plug 'majutsushi/tagbar'
-Plug 'mbbill/undotree'
-
-" For pretty statusline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 
 " For syntax highlighting
 Plug 'cespare/vim-toml'
@@ -26,19 +22,14 @@ Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'keith/swift.vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'dag/vim-fish'
 
 " For misc. improvement
-Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-signify'
 Plug 'w0rp/ale'
 
 " Trying
-Plug 'kana/vim-operator-user'
-Plug 'haya14busa/vim-operator-flashy'
-Plug 'lambdalisue/gina.vim'
 Plug 'vim-jp/vital.vim'
 Plug 'equal-l2/vim-base64'
 
@@ -47,11 +38,11 @@ call plug#end()
 
 " ale settings
 let g:ale_linters = {
-      \'c'    : ['clang'],
-      \'cpp'  : ['clang'],
-      \'python'  : ['flake8'],
-      \'ruby' : [],
-      \}
+            \'c'    : ['clang'],
+            \'cpp'  : ['clang'],
+            \'python'  : ['flake8'],
+            \'ruby' : [],
+            \}
 let g:ale_lint_delay=3500
 let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
 let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
@@ -64,11 +55,15 @@ let g:bufferline_echo=0
 let g:peekaboo_window='vert bo new'
 
 if $COLORTERM != 'truecolor'
-  set notermguicolors
+    set notermguicolors
 else
-  set termguicolors
-  colorscheme kalisi
-  let g:airline_theme='kalisi'
+    set termguicolors
+    colorscheme gruvbox
+    let g:gruvbox_contrast_dark='hard'
+    let g:gruvbox_invert_selection=0
+    let g:lightline = {
+                \    'colorscheme': 'gruvbox'
+                \}
 end
 
 let g:tex_flavor='latex'
@@ -95,8 +90,8 @@ filetype plugin indent on      " enable filetype detection
 
 " preference
 if has('nvim')
-  set inccommand=nosplit       " show result for replacing incrementally
-  tnoremap <silent> <ESC> <C-\><C-n>
+    set inccommand=nosplit     " show result for replacing incrementally
+    tnoremap <silent> <ESC> <C-\><C-n>
 endif
 
 set background=dark
@@ -114,7 +109,7 @@ set nofixeol                   " do not add new line on the end of file
 set nowrap                     " do not wrap
 set number                     " show line number
 set omnifunc=syntaxcomplete#Complete
-set shiftwidth=2               " set indent width
+set shiftwidth=4               " set indent width
 set wildmode=list:longest,full " wildmenu settings
 
 autocmd FileType php setlocal autoindent
