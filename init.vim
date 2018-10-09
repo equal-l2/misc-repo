@@ -82,7 +82,7 @@ set mouse=a                    " enable mouse for all mode
 set ruler                      " show number of line and column where the cursor is
 set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
 set smarttab                   " enable smart tab
-set tags="./tags;,tags"        " set tag file location
+set tags=./tags;,tags        " set tag file location
 set ttyfast                    " assume fast terminal connection
 set wildmenu                   " enable wildmenu
 syntax on                      " enable syntax highlighting
@@ -115,4 +115,5 @@ set wildmode=list:longest,full " wildmenu settings
 autocmd FileType php setlocal autoindent
 autocmd FileType kotlin setlocal shiftwidth=4
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd FileType ruby setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
