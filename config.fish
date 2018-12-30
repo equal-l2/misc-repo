@@ -14,11 +14,10 @@ end
 function __longest_path -a len
   set -g fish_prompt_pwd_dir_length 0
   set -l getlen 'string length (prompt_pwd)'
-  if test (eval $getlen) -gt $len
-    # echo 'the raw path is too long'
+  if test (eval $getlen) -gt $len # if the raw path is too long
     set -g fish_prompt_pwd_dir_length 1
     if test (eval $getlen) -le $len
-      # echo 'determine the longest $fish_prompt_pwd_dir_length'
+      # determine the longest $fish_prompt_pwd_dir_length
       while test (eval $getlen) -le $len
         set -g fish_prompt_pwd_dir_length (math $fish_prompt_pwd_dir_length + 1)
       end
@@ -31,7 +30,7 @@ end
 function fish_prompt --description "My own prompt!"
   set -l last_status $status
 
-  # return code
+  # return value
   set -l statstr
   if test $last_status -eq 0
       set statstr '\e[32m'
@@ -42,7 +41,7 @@ function fish_prompt --description "My own prompt!"
 
   # jobs (if exist)
   set -l jobcnt (count (jobs))
-  set -l job ' : Job'
+  set -l job ': Job'
   if test $jobcnt -ne 0
     if test $jobcnt -gt 1
       set job (string join '' $job 's')
