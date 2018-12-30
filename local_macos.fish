@@ -5,6 +5,7 @@ set -x RUST_SRC_PATH ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustli
 
 set -x JAVA_HOME (/usr/libexec/java_home)
 set -x PATH ~/clogsys ~/bin /usr/local/sbin /usr/local/opt/texinfo/bin ~/go/bin /opt/metasploit-framework/bin/ /usr/local/bin $PATH
+set -x HOMEBREW_DEVELOPER
 
 function daily-update
   brew upgrade --fetch-HEAD
@@ -15,7 +16,6 @@ function daily-update
   cargo install-update -a
 
   pip3 list --outdated --format=columns
-  pip list --outdated --format=columns
   npm up -g
 end
 
@@ -39,5 +39,3 @@ function c++-san
   $argv
 end
 
-# opam configuration
-source ~/.opam/opam-init/init.fish
