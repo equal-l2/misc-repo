@@ -9,7 +9,6 @@ call plug#begin()
 " Plugins
 " For vim improvement
 Plug 'bling/vim-bufferline'
-Plug 'freeo/vim-kalisi'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-peekaboo'
 Plug 'itchyny/lightline.vim'
