@@ -26,11 +26,11 @@ compinit
 autoload -U zmv
 bindkey -e
 
+alias ls='ls -AFG'
+export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export EDITOR=nvim
 export MANPAGER="nvim -c 'set ft=man' -"
-alias ls='exa -aFs Extension'
 export PATH=~/clogsys:~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:/opt/metasploit-framework/bin/:$PATH
 export RUST_BACKTRACE=1
 export RUSTFLAGS='-C linker=rust-lld -Z linker-flavor=ld64.lld'
