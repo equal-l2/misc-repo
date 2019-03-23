@@ -23,6 +23,7 @@ Plug 'aklt/plantuml-syntax'
 " For misc. improvement
 Plug 'mhinz/vim-signify'
 Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'davidhalter/jedi-vim'
 
 " For vim-plugin development
@@ -61,6 +62,8 @@ else
                 \    'colorscheme': 'gruvbox'
                 \}
 end
+
+let g:EditorConfig_core_mode='external_command'
 
 " config for latex
 let g:tex_flavor='latex'
