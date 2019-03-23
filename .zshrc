@@ -39,3 +39,15 @@ export JAVA_HOME=`/usr/libexec/java_home`
 PS1=$'
 \e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m
 %# '
+
+function daily-update {
+    brew upgrade --fetch-HEAD
+
+    brew cask upgrade --greedy
+
+    rustup update
+    cargo install-update -a
+
+    pip3 list --outdated --format=columns
+    npm up -g
+}
