@@ -15,14 +15,10 @@ Plug 'itchyny/lightline.vim'
 
 " For syntax highlighting
 Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
-Plug 'leafgarland/typescript-vim'
 Plug 'aklt/plantuml-syntax'
-Plug 'dag/vim-fish'
 
 " For misc. improvement
 Plug 'mhinz/vim-signify'
@@ -111,8 +107,6 @@ set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4               " set indent width
 set wildmode=list:longest,full " wildmenu settings
 
-autocmd FileType php setlocal autoindent
 autocmd FileType kotlin setlocal shiftwidth=4
-autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
