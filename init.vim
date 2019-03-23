@@ -23,8 +23,9 @@ Plug 'aklt/plantuml-syntax'
 " For misc. improvement
 Plug 'mhinz/vim-signify'
 Plug 'w0rp/ale'
+Plug 'davidhalter/jedi-vim'
 
-" Trying
+" For vim-plugin development
 Plug 'vim-jp/vital.vim'
 Plug 'equal-l2/vim-base64'
 
@@ -61,8 +62,12 @@ else
                 \}
 end
 
+" config for latex
 let g:tex_flavor='latex'
 let g:tex_conceal=''
+
+" config for jedi-vim
+let g:jedi#auto_initialization=0
 
 " use neovim's default configuration
 set autoindent                 " enable autoindent
@@ -108,5 +113,6 @@ set shiftwidth=4               " set indent width
 set wildmode=list:longest,full " wildmenu settings
 
 autocmd FileType kotlin setlocal shiftwidth=4
+autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType ruby setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
