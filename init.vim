@@ -44,9 +44,9 @@ let g:ale_lint_delay=3500
 let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
 let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
 let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
-
-" bufferline setting
-let g:bufferline_echo=0
+let g:ale_python_flake8_options = '--ignore=E741,E241'
+let g:ale_java_javac_executable = 'jfxc'
+let g:ale_virtualtext_cursor = 1
 
 " peekaboo setting
 let g:peekaboo_window='vert bo new'
@@ -85,7 +85,7 @@ set mouse=a                    " enable mouse for all mode
 set ruler                      " show number of line and column where the cursor is
 set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
 set smarttab                   " enable smart tab
-set tags=./tags;,tags        " set tag file location
+set tags=./tags;,tags          " set tag file location
 set ttyfast                    " assume fast terminal connection
 set wildmenu                   " enable wildmenu
 syntax on                      " enable syntax highlighting
@@ -104,11 +104,13 @@ set cursorline                 " hightlight the line where cursor is
 set expandtab                  " don't use tab, but use space
 set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set foldmethod=indent
-set foldlevel=100
+set foldlevel=15
 set hidden                     " open another buffer even if unsaved changes exist
+set lazyredraw                 " performance improvement
 set list                       " show invisible character like tabs or spaces
 set matchpairs+=<:>            " match brackets
 set nofixeol                   " do not add new line on the end of file
+set noshowmode                 " lightline shows the mode, no need to show it by vim itself
 set nowrap                     " do not wrap
 set number                     " show line number
 set omnifunc=syntaxcomplete#Complete
