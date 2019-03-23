@@ -33,10 +33,8 @@ export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export MANPAGER="nvim -c 'set ft=man' -"
-export PATH=~/clogsys:~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:/opt/metasploit-framework/bin/:$PATH
+export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
-export RUSTFLAGS='-C linker=rust-lld -Z linker-flavor=ld64.lld'
-export RUST_SRC_PATH=~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 export JAVA_HOME=`/usr/libexec/java_home`
 PS1=$'
 \e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m
