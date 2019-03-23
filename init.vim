@@ -113,7 +113,14 @@ set nowrap                     " do not wrap
 set number                     " show line number
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4               " set indent width
+set virtualedit=block
 set wildmode=list:longest,full " wildmenu settings
+
+" better line handling for wrapped lines
+noremap j gj
+noremap k gk
+noremap <Down> gj
+noremap <Up> gk
 
 autocmd FileType kotlin setlocal shiftwidth=4
 autocmd FileType python setlocal omnifunc=jedi#completions
