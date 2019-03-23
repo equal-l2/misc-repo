@@ -20,6 +20,7 @@ setopt pushd_to_home
 
 autoload -Uz compinit
 fpath+=~/.zfunc
+fpath+=/usr/local/share/zsh/site-functions
 compinit
 
 autoload -U zmv
