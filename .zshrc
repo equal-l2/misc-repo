@@ -27,6 +27,8 @@ autoload -U zmv
 bindkey -e
 
 alias ls='ls -AFG'
+export BAT_STYLE='plain'
+export BAT_THEME='zenburn'
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
