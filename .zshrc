@@ -29,10 +29,14 @@ export MANPAGER="nvim -c 'set ft=man' -"
 export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
 export JAVA_HOME=`/usr/libexec/java_home`
-PS1=$'
-\e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m
-%# '
 
+
+if [ -n "$SSH_CONNECTION" ]; then
+    SERVER_IP=${${(z)SSH_CONNECTION}[3]}
+    PROMPT_BEFORE=$'\n\e[7m< SSH : '$SERVER_IP$' >\e[m'
+fi
+
+PS1=$PROMPT_BEFORE$'\n\e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
 function daily-update {
     brew upgrade --fetch-HEAD
 
