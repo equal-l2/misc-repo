@@ -1,11 +1,3 @@
-source ~/.zplug/init.zsh
-
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug 'zsh-users/zsh-completions'
-zplug 'zdharma/fast-syntax-highlighting', defer:2
-
-zplug load
-
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -52,4 +44,11 @@ function daily-update {
     pip3 list --outdated --format=columns
     npm up -g
 }
+
+source <(antibody init)
+antibody bundle <<- EOF
+zsh-users/zsh-completions
+zdharma/fast-syntax-highlighting
+EOF
+
 test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
