@@ -17,6 +17,7 @@ setopt magic_equal_subst
 setopt glob_dots
 setopt auto_pushd
 setopt pushd_to_home
+setopt list_packed
 
 autoload -Uz compinit
 fpath+=~/.zfunc
