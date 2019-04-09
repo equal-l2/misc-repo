@@ -42,7 +42,7 @@ function daily-update {
 
     brew cask upgrade --greedy
 
-    rustup update
+    rustup update --force
     cargo install-update -a
 
     pip3 list --outdated --format=columns
