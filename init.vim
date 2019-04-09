@@ -37,7 +37,7 @@ call plug#end()
 let g:ale_linters = {
             \'c'    : ['clang'],
             \'cpp'  : ['clang'],
-            \'python'  : ['flake8'],
+            \'python'  : ['flake8', 'bandit', 'pylint'],
             \'ruby' : [],
             \}
 let g:ale_lint_delay=3500
@@ -45,6 +45,8 @@ let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missin
 let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
 let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
 let g:ale_python_flake8_options = '--ignore=E741,E241'
+let g:ale_python_pylint_options = '--disable=C0111'
+let g:ale_python_bandit_options = '--skip B322'
 let g:ale_java_javac_executable = 'jfxc'
 let g:ale_virtualtext_cursor = 1
 
