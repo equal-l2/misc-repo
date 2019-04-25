@@ -3,76 +3,82 @@ if &compatible
     set nocompatible
 endif
 
-" vim-plug initialization
-call plug#begin()
-
-" Plugins
-" For vim improvement
-Plug 'bling/vim-bufferline'
-Plug 'morhetz/gruvbox'
-Plug 'junegunn/vim-peekaboo'
-Plug 'itchyny/lightline.vim'
-
-" For syntax highlighting
-Plug 'cespare/vim-toml'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'rust-lang/rust.vim'
-Plug 'udalov/kotlin-vim'
-Plug 'aklt/plantuml-syntax'
-
-" For misc. improvement
-Plug 'mhinz/vim-signify'
-Plug 'w0rp/ale'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'davidhalter/jedi-vim'
-
-" For vim-plugin development
-Plug 'vim-jp/vital.vim'
-Plug 'equal-l2/vim-base64'
-
-" finalize plugin loading
-call plug#end()
-
-" ale settings
-let g:ale_linters = {
-            \'c'    : ['clang'],
-            \'cpp'  : ['clang'],
-            \'python'  : ['flake8', 'bandit', 'pylint'],
-            \'ruby' : [],
-            \}
-let g:ale_lint_delay=3500
-let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
-let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
-let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
-let g:ale_python_flake8_options = '--ignore=E741,E241'
-let g:ale_python_pylint_options = '--disable=C0111'
-let g:ale_python_bandit_options = '--skip B322'
-let g:ale_java_javac_executable = 'jfxc'
-let g:ale_virtualtext_cursor = 1
-
-" peekaboo setting
-let g:peekaboo_window='vert bo new'
-
 if $COLORTERM != 'truecolor'
     set notermguicolors
 else
     set termguicolors
-    colorscheme gruvbox
-    let g:gruvbox_contrast_dark='hard'
-    let g:gruvbox_invert_selection=0
-    let g:lightline = {
-                \    'colorscheme': 'gruvbox'
-                \}
-end
+endif
 
-let g:EditorConfig_core_mode='external_command'
+silent! packadd minpac
+if exists('*minpac#init')
+    call minpac#init()
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+    " Plugins
+    " For vim improvement
+    call minpac#add('bling/vim-bufferline')
+    call minpac#add('itchyny/lightline.vim')
+    call minpac#add('junegunn/vim-peekaboo')
+    call minpac#add('morhetz/gruvbox')
+
+    " For syntax highlighting
+    call minpac#add('aklt/plantuml-syntax')
+    call minpac#add('cespare/vim-toml')
+    call minpac#add('hail2u/vim-css3-syntax')
+    call minpac#add('rust-lang/rust.vim')
+    call minpac#add('udalov/kotlin-vim')
+
+    " For misc. improvement
+    call minpac#add('davidhalter/jedi-vim')
+    call minpac#add('editorconfig/editorconfig-vim')
+    call minpac#add('mhinz/vim-signify')
+    call minpac#add('w0rp/ale')
+
+    " For vim-plugin development
+    call minpac#add('equal-l2/vim-base64')
+    call minpac#add('vim-jp/vital.vim')
+
+    packloadall
+
+    " ale settings
+    let g:ale_linters = {
+                \'c'    : ['clang'],
+                \'cpp'  : ['clang'],
+                \'python'  : ['flake8', 'bandit', 'pylint'],
+                \'ruby' : [],
+                \}
+    let g:ale_lint_delay=3500
+    let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
+    let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
+    let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+    let g:ale_python_flake8_options = '--ignore=E741,E241'
+    let g:ale_python_pylint_options = '--disable=C0111'
+    let g:ale_python_bandit_options = '--skip B322'
+    let g:ale_java_javac_executable = 'jfxc'
+    let g:ale_virtualtext_cursor = 1
+
+    " peekaboo setting
+    let g:peekaboo_window='vert bo new'
+
+    let g:EditorConfig_core_mode='external_command'
+
+    " config for jedi-vim
+    let g:jedi#auto_initialization=0
+
+    " config for colorscheme
+    if &termguicolors
+        colorscheme gruvbox
+        let g:gruvbox_contrast_dark='hard'
+        let g:gruvbox_invert_selection=0
+        let g:lightline = {
+                    \    'colorscheme': 'gruvbox'
+                    \}
+    endif
+endif
 
 " config for latex
 let g:tex_flavor='latex'
 let g:tex_conceal=''
-
-" config for jedi-vim
-let g:jedi#auto_initialization=0
 
 " use neovim's default configuration
 set autoindent                 " enable autoindent
@@ -108,6 +114,7 @@ set fileencodings=ucs-bom,utf-8,shift_jis,default,latin1
 set foldmethod=indent
 set foldlevel=15
 set hidden                     " open another buffer even if unsaved changes exist
+set ignorecase                 " search case-insensitively (overridden by smartcase)
 set lazyredraw                 " performance improvement
 set list                       " show invisible character like tabs or spaces
 set matchpairs+=<:>            " match brackets
@@ -117,6 +124,7 @@ set nowrap                     " do not wrap
 set number                     " show line number
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4               " set indent width
+set smartcase                  " search case-sensitively only given uppercase
 set virtualedit=block
 set wildmode=list:longest,full " wildmenu settings
 
