@@ -23,15 +23,12 @@ autoload -U zmv
 bindkey -e
 
 alias ls='ls -AFG'
-export BAT_STYLE='plain'
-export BAT_THEME='zenburn'
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export MANPAGER="nvim -c 'set ft=man' -"
 export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
-export JAVA_HOME=`/usr/libexec/java_home`
 
 if [ -n "$SSH_CONNECTION" ]; then
     SERVER_IP=${${(z)SSH_CONNECTION}[3]}
