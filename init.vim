@@ -26,10 +26,8 @@ if exists('*minpac#init')
     call minpac#add('cespare/vim-toml')
     call minpac#add('hail2u/vim-css3-syntax')
     call minpac#add('rust-lang/rust.vim')
-    call minpac#add('udalov/kotlin-vim')
 
     " For misc. improvement
-    call minpac#add('davidhalter/jedi-vim')
     call minpac#add('editorconfig/editorconfig-vim')
     call minpac#add('mhinz/vim-signify')
     call minpac#add('w0rp/ale')
