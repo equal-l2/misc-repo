@@ -19,6 +19,18 @@ bindkey -e
 alias ls='ls -AF --color'
 export EDITOR=nvim
 export MANPAGER="nvim -c 'set ft=man' -"
-PS1=$'
-\e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m
-%# '
+
+if [ -n "$SSH_CONNECTION" ]; then
+    SERVER_IP=${${(z)SSH_CONNECTION}[3]}
+    PROMPT_BEFORE=$'\n\e[7m< SSH : '$SERVER_IP$' >\e[m'
+fi
+PS1=$PROMPT_BEFORE$'\n\e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
+
+export PATH=~/bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+
+source <(antibody init)
+antibody bundle <<- EOF
+zsh-users/zsh-completions
+zdharma/fast-syntax-highlighting
+EOF
