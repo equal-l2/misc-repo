@@ -9,7 +9,13 @@ import std.stdio;
 import std.string;
 import std.typecons;
 
-T diff(T)(const ref T a, const ref T b) { return a > b ? a - b : b - a; }
+// 差の絶対値
+@nogc @safe pure T diff(T)(const ref T a, const ref T b) { return a > b ? a - b : b - a; }
+
+// 切り上げ除算
+@nogc @safe pure T divCeil(T)(const ref T a, const ref T b) {
+    return (a+b-1)/b;
+}
 
 T[] readToArray(T)() {
     return readln.split.to!(T[]);
