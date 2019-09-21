@@ -3,8 +3,8 @@
 	br = branch
 	cl = clone
 	co = checkout
-	con = config
 	st = status -sb
+	sw = switch
 [core]
 	preloadindex = true
 	fscache = true
