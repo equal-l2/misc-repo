@@ -46,7 +46,7 @@ function daily-update {
     rustup update --force
     cargo install-update -a
 
-    pip3 list --outdated --format=columns
+    #pip3 list --outdated --format=columns
     npm up -g
     antibody update
 }
@@ -58,3 +58,8 @@ zdharma/fast-syntax-highlighting
 EOF
 
 test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+source /Users/hitoshi/Library/Preferences/org.dystroy.broot/launcher/bash/br
