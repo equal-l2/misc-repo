@@ -20,11 +20,13 @@ if exists('*minpac#init')
     call minpac#add('itchyny/lightline.vim')
     call minpac#add('junegunn/vim-peekaboo')
     call minpac#add('morhetz/gruvbox')
+    call minpac#add('zxqfl/tabnine-vim')
 
     " For syntax highlighting
     call minpac#add('aklt/plantuml-syntax')
     call minpac#add('cespare/vim-toml')
     call minpac#add('hail2u/vim-css3-syntax')
+    call minpac#add('leafgarland/typescript-vim')
     call minpac#add('rust-lang/rust.vim')
 
     " For misc. improvement
@@ -46,7 +48,7 @@ if exists('*minpac#init')
                 \'ruby' : [],
                 \}
     let g:ale_lint_delay=3500
-    let s:clang_opts = '-Weverything -Wno-padded -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
+    let s:clang_opts = '-Weverything -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
     let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
     let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
     let g:ale_python_flake8_options = '--ignore=E741,E241'
@@ -105,6 +107,7 @@ endif
 
 set background=dark
 set breakindent                " apply indent to wrapped line (in case of wrap)
+set completeopt="menu"
 set conceallevel=0             " disable concealed text
 set cursorline                 " hightlight the line where cursor is
 set expandtab                  " don't use tab, but use space
