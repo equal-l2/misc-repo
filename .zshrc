@@ -29,6 +29,8 @@ export LC_ALL=en_US.UTF-8
 export MANPAGER="nvim -c 'set ft=man' -"
 export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
+export RUSTFLAGS="-C target-cpu=native"
+export CARGO_BUILD_PIPELINING=true
 
 if [ -n "$SSH_CONNECTION" ]; then
     SERVER_IP=${${(z)SSH_CONNECTION}[3]}
