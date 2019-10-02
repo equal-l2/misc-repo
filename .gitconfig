@@ -2,7 +2,6 @@
 [alias]
 	br = branch
 	cl = clone
-	co = checkout
 	st = status -sb
 	sw = switch
 [core]
