@@ -102,6 +102,7 @@ filetype plugin indent on      " enable filetype detection
 " preference
 if has('nvim')
     set inccommand=nosplit     " show result for replacing incrementally
+    set pumblend=5             " make popup transparent
     tnoremap <silent> <ESC> <C-\><C-n>
 endif
 
