@@ -30,7 +30,6 @@ export MANPAGER="nvim -c 'set ft=man' -"
 export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
 export RUSTFLAGS="-C target-cpu=native"
-export CARGO_BUILD_PIPELINING=true
 
 if [ -n "$SSH_CONNECTION" ]; then
     SERVER_IP=${${(z)SSH_CONNECTION}[3]}
@@ -60,6 +59,5 @@ EOF
 test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 
 source /Users/hitoshi/Library/Preferences/org.dystroy.broot/launcher/bash/br
