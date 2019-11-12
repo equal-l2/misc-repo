@@ -8,6 +8,7 @@
 	preloadindex = true
 	fscache = true
 	excludesfile = ~/.gitignore
+	pager = delta --dark
 [diff]
 	colorMoved = true
 [diff "sqlite3"]
