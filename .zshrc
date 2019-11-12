@@ -42,7 +42,7 @@ function daily-update {
 
     brew cask upgrade --greedy
 
-    rustup update --force
+    rustup update
     cargo install-update -a
 
     #pip3 list --outdated --format=columns
@@ -59,5 +59,3 @@ EOF
 test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-source /Users/hitoshi/Library/Preferences/org.dystroy.broot/launcher/bash/br
