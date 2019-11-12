@@ -18,7 +18,6 @@ if exists('*minpac#init')
     " For vim improvement
     call minpac#add('bling/vim-bufferline')
     call minpac#add('itchyny/lightline.vim')
-    call minpac#add('junegunn/vim-peekaboo')
     call minpac#add('morhetz/gruvbox')
     call minpac#add('zxqfl/tabnine-vim')
 
