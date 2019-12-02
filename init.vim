@@ -9,70 +9,71 @@ else
     set termguicolors
 endif
 
-silent! packadd minpac
-if exists('*minpac#init')
-    call minpac#init()
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
+call plug#begin()
+" Plugins
+" For vim improvement
+Plug 'bling/vim-bufferline'
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+Plug 'zxqfl/tabnine-vim'
+Plug 'unblevable/quick-scope'
 
-    " Plugins
-    " For vim improvement
-    call minpac#add('bling/vim-bufferline')
-    call minpac#add('itchyny/lightline.vim')
-    call minpac#add('morhetz/gruvbox')
-    call minpac#add('zxqfl/tabnine-vim')
+" For syntax highlighting
+Plug 'aklt/plantuml-syntax'
+Plug 'cespare/vim-toml'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'leafgarland/typescript-vim'
+Plug 'rust-lang/rust.vim'
 
-    " For syntax highlighting
-    call minpac#add('aklt/plantuml-syntax')
-    call minpac#add('cespare/vim-toml')
-    call minpac#add('hail2u/vim-css3-syntax')
-    call minpac#add('leafgarland/typescript-vim')
-    call minpac#add('rust-lang/rust.vim')
+" For misc. improvement
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mhinz/vim-signify'
+Plug 'w0rp/ale'
 
-    " For misc. improvement
-    call minpac#add('editorconfig/editorconfig-vim')
-    call minpac#add('mhinz/vim-signify')
-    call minpac#add('w0rp/ale')
+" For vim-plugin development
+Plug 'equal-l2/vim-base64'
+Plug 'vim-jp/vital.vim'
 
-    " For vim-plugin development
-    call minpac#add('equal-l2/vim-base64')
-    call minpac#add('vim-jp/vital.vim')
+call plug#end()
 
-    packloadall
+" quick-scope setting
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-    " ale settings
-    let g:ale_linters = {
-                \'c'    : ['clang'],
-                \'cpp'  : ['clang'],
-                \'python'  : ['flake8', 'bandit', 'pylint'],
-                \'ruby' : [],
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg=bg guibg=fg
+augroup END
+
+" ale settings
+let g:ale_linters = {
+            \'c'    : ['clang'],
+            \'cpp'  : ['clang'],
+            \'python'  : ['flake8', 'bandit', 'pylint'],
+            \'ruby' : [],
+            \}
+let g:ale_lint_delay=3500
+let s:clang_opts = '-Weverything -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
+let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
+let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+let g:ale_python_flake8_options = '--ignore=E741,E241'
+let g:ale_python_pylint_options = '--disable=C0111'
+let g:ale_python_bandit_options = '--skip B322'
+let g:ale_java_javac_executable = 'jfxc'
+let g:ale_virtualtext_cursor = 1
+
+" peekaboo setting
+let g:peekaboo_window='vert bo new'
+
+let g:EditorConfig_core_mode='external_command'
+
+" config for colorscheme
+if &termguicolors
+    colorscheme gruvbox
+    let g:gruvbox_contrast_dark='hard'
+    let g:gruvbox_invert_selection=0
+    let g:lightline = {
+                \    'colorscheme': 'gruvbox'
                 \}
-    let g:ale_lint_delay=3500
-    let s:clang_opts = '-Weverything -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
-    let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
-    let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
-    let g:ale_python_flake8_options = '--ignore=E741,E241'
-    let g:ale_python_pylint_options = '--disable=C0111'
-    let g:ale_python_bandit_options = '--skip B322'
-    let g:ale_java_javac_executable = 'jfxc'
-    let g:ale_virtualtext_cursor = 1
-
-    " peekaboo setting
-    let g:peekaboo_window='vert bo new'
-
-    let g:EditorConfig_core_mode='external_command'
-
-    " config for jedi-vim
-    let g:jedi#auto_initialization=0
-
-    " config for colorscheme
-    if &termguicolors
-        colorscheme gruvbox
-        let g:gruvbox_contrast_dark='hard'
-        let g:gruvbox_invert_selection=0
-        let g:lightline = {
-                    \    'colorscheme': 'gruvbox'
-                    \}
-    endif
 endif
 
 " config for latex
@@ -136,6 +137,5 @@ noremap <Down> gj
 noremap <Up> gk
 
 autocmd FileType kotlin setlocal shiftwidth=4
-autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType ruby setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
