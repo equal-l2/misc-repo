@@ -8,6 +8,7 @@
 	preloadindex = true
 	fscache = true
 	excludesfile = ~/.gitignore
+	quotepath = off
 [diff]
 	colorMoved = true
 [diff "sqlite3"]
