@@ -35,7 +35,8 @@ export RUSTFLAGS="-C target-cpu=native"
 setopt prompt_subst
 precmd() {
     # set git branch name to _git_br
-    local out=$(git symbolic-ref --short -q HEAD 2>/dev/null)
+    local out; # NB `local` is a command, which mutate $?
+    out=$(git symbolic-ref --short -q HEAD 2>/dev/null)
     local cmdst=$?
     if [ $cmdst -eq 0 ]; then
         _git_br=$' @ '$out
