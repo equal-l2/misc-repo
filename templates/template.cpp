@@ -16,8 +16,8 @@ using namespace std;
 // for(int lcnt = 0; lcnt < n; lcnt++) cin >> as[lcnt];
 // ```
 #define M_RTV(ident, type, cnt) \
+    vector<type> ident(cnt);\
     do {\
-        vector<type> ident(cnt);\
         for(int lcnt = 0; lcnt < cnt; lcnt++) cin >> ident[lcnt];\
     } while(false)
 
@@ -26,8 +26,7 @@ using namespace std;
 
 // https://qiita.com/EqualL2/items/b4683db7ab4e90545bb2
 int ctoi(const char c){
-    if('0' <= c && c <= '9') return (c-'0');
-    return -1;
+    return (c-'0');
 }
 
 int main() {
