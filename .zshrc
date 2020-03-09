@@ -31,11 +31,27 @@ export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
 export RUSTFLAGS="-C target-cpu=native"
 
+# prompt
+setopt prompt_subst
+precmd() {
+    # set git branch name to _git_br
+    local out=$(git symbolic-ref --short -q HEAD 2>/dev/null)
+    local cmdst=$?
+    if [ $cmdst -eq 0 ]; then
+        _git_br=$' @ '$out
+    elif [ $cmdst -eq 1 ]; then
+        _git_br=$' @ \e[41m?\e[49m'
+    else
+        _git_br=$''
+    fi
+}
+
 if [ -n "$SSH_CONNECTION" ]; then
     SERVER_IP=${${(z)SSH_CONNECTION}[3]}
     PROMPT_BEFORE=$'\n\e[7m< SSH : '$SERVER_IP$' >\e[m'
 fi
-PS1=$PROMPT_BEFORE$'\n\e[7m[ %~ : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
+
+PS1=$PROMPT_BEFORE$'\n\e[7m[ %~$_git_br : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
 
 function daily-update {
     brew upgrade --fetch-HEAD
