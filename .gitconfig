@@ -4,8 +4,9 @@
 	cl = clone
 	st = status -sb
 	sw = switch
+	miki = fetch --all
+	rewrite = commit --amend --no-edit
 [core]
-	preloadindex = true
 	fscache = true
 	excludesfile = ~/.gitignore
 	quotepath = off
