@@ -27,7 +27,7 @@ export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export MANPAGER="nvim -c 'set ft=man' -"
-export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
+export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:$PATH
 export RUST_BACKTRACE=1
 export RUSTFLAGS="-C target-cpu=native"
 
@@ -78,3 +78,5 @@ test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:~/vulkansdk-macos-1.1.130.0/macOS/lib
+
+eval "$(zoxide init zsh)"
