@@ -10,27 +10,30 @@ else
 endif
 
 call plug#begin()
-" Plugins
-" For vim improvement
-Plug 'bling/vim-bufferline'
-Plug 'itchyny/lightline.vim'
+" colorscheme
 Plug 'morhetz/gruvbox'
-Plug 'zxqfl/tabnine-vim'
+
+" improvements
+Plug 'bling/vim-bufferline'
+Plug 'codota/tabnine-vim'
+Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
-
-" For syntax highlighting
-Plug 'aklt/plantuml-syntax'
-Plug 'cespare/vim-toml'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'leafgarland/typescript-vim'
-Plug 'rust-lang/rust.vim'
-
-" For misc. improvement
-Plug 'editorconfig/editorconfig-vim'
-Plug 'mhinz/vim-signify'
 Plug 'w0rp/ale'
 
-" For vim-plugin development
+" project integration
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mhinz/vim-signify'
+
+" syntax highlighting
+Plug 'aklt/plantuml-syntax'
+Plug 'cespare/vim-toml'
+Plug 'fatih/vim-go'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'pest-parser/pest.vim'
+Plug 'rhysd/vim-crystal'
+Plug 'rust-lang/rust.vim'
+
+" for vim-plugin development
 Plug 'equal-l2/vim-base64'
 Plug 'vim-jp/vital.vim'
 
@@ -45,26 +48,22 @@ augroup qs_colors
 augroup END
 
 " ale settings
-let g:ale_linters = {
-            \'c'    : ['clang'],
-            \'cpp'  : ['clang'],
-            \'python'  : ['flake8', 'bandit', 'pylint'],
-            \'ruby' : [],
-            \}
-let g:ale_lint_delay=3500
 let s:clang_opts = '-Weverything -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
 let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
 let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
+let g:ale_java_javac_executable = 'jfxc'
+let g:ale_lint_delay=3500
+let g:ale_linters = {
+            \'c'    : ['clang'],
+            \'cpp'  : ['clang'],
+            \'go'  : ['gofmt', 'golangci-lint', 'golint', 'gotype', 'govet', 'staticcheck'],
+            \'python'  : ['flake8', 'bandit', 'pylint'],
+            \'ruby' : [],
+            \}
+let g:ale_python_bandit_options = '--skip B322'
 let g:ale_python_flake8_options = '--ignore=E741,E241'
 let g:ale_python_pylint_options = '--disable=C0111'
-let g:ale_python_bandit_options = '--skip B322'
-let g:ale_java_javac_executable = 'jfxc'
 let g:ale_virtualtext_cursor = 1
-
-" peekaboo setting
-let g:peekaboo_window='vert bo new'
-
-let g:EditorConfig_core_mode='external_command'
 
 " config for colorscheme
 if &termguicolors
@@ -82,9 +81,11 @@ let g:tex_conceal=''
 
 " use neovim's default configuration
 set autoindent                 " enable autoindent
+set autoread                   " automatically re-read the file when detecting a change by others
 set backspace=indent,eol,start " set backspace behavior
 set belloff=all                " don't ring a bell
-set display=lastline           " show the whole line even for long one
+set complete=".,w,b,u,t"       " set complete types (excludes i for performance)
+set display=lastline           " ??? show the whole line even for long one
 set hlsearch                   " enable highlighting match
 set incsearch                  " enable incremental search
 set laststatus=2               " always show status bar
@@ -126,6 +127,7 @@ set nowrap                     " do not wrap
 set number                     " show line number
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4               " set indent width
+set signcolumn=yes             " always show signcolumn
 set smartcase                  " search case-sensitively only given uppercase
 set virtualedit=block
 set wildmode=list:longest,full " wildmenu settings
@@ -136,6 +138,11 @@ noremap k gk
 noremap <Down> gj
 noremap <Up> gk
 
+autocmd CmdwinEnter [:\/\?=] setlocal nonumber
+autocmd CmdwinEnter [:\/\?=] setlocal signcolumn=no
+
 autocmd FileType kotlin setlocal shiftwidth=4
 autocmd FileType ruby setlocal shiftwidth=2
+autocmd FileType yaml setlocal shiftwidth=2
+autocmd FileType go setlocal tabstop=4
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
