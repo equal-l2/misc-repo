@@ -12,6 +12,7 @@
 	quotepath = off
 [diff]
 	colorMoved = true
+	algorithm = histogram
 [diff "sqlite3"]
 	binary = true
 	textconv = "echo .dump | sqlite3"
@@ -25,3 +26,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[pull]
+	ff = only
