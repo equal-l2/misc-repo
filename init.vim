@@ -32,6 +32,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'pest-parser/pest.vim'
 Plug 'rhysd/vim-crystal'
 Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
 
 " for vim-plugin development
 Plug 'equal-l2/vim-base64'
@@ -54,7 +55,7 @@ let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -
 let g:ale_java_javac_executable = 'jfxc'
 let g:ale_lint_delay=3500
 let g:ale_linters = {
-            \'c'    : ['clang'],
+            \'c'    : ['clang', 'cppcheck'],
             \'cpp'  : ['clang'],
             \'go'  : ['gofmt', 'golangci-lint', 'golint', 'gotype', 'govet', 'staticcheck'],
             \'python'  : ['flake8', 'bandit', 'pylint'],
@@ -145,4 +146,6 @@ autocmd FileType kotlin setlocal shiftwidth=4
 autocmd FileType ruby setlocal shiftwidth=2
 autocmd FileType yaml setlocal shiftwidth=2
 autocmd FileType go setlocal tabstop=4
+autocmd FileType javascript setlocal shiftwidth=2
+autocmd FileType typescript setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
