@@ -80,6 +80,9 @@ endif
 let g:tex_flavor='latex'
 let g:tex_conceal=''
 
+" config for netrw
+let g:netrw_cygwin=0
+
 " use neovim's default configuration
 set autoindent                 " enable autoindent
 set autoread                   " automatically re-read the file when detecting a change by others
