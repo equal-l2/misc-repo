@@ -6,6 +6,7 @@
 	sw = switch
 	miki = fetch --all
 	rewrite = commit --amend --no-edit
+	brute = push --force-with-lease
 [core]
 	fscache = true
 	excludesfile = ~/.gitignore
