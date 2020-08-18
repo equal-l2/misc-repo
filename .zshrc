@@ -16,7 +16,6 @@ setopt list_packed
 
 autoload -Uz compinit
 fpath+=~/.zfunc
-fpath+=/usr/local/share/zsh/site-functions
 compinit
 
 autoload -U zmv
@@ -73,12 +72,8 @@ zsh-users/zsh-completions
 zdharma/fast-syntax-highlighting
 EOF
 
-test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
-
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:~/vulkansdk-macos-1.1.130.0/macOS/lib
 
 eval "$(zoxide init zsh)"
