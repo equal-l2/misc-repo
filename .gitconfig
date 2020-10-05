@@ -29,3 +29,7 @@
 	required = true
 [pull]
 	ff = only
+[credential]
+	helper = osxkeychain
+[protocol]
+	version = 2
