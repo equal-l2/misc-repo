@@ -55,9 +55,7 @@ fi
 PS1=$PROMPT_BEFORE$'\n\e[7m[ %~$_git_br : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
 
 function daily-update {
-    brew upgrade --fetch-HEAD
-
-    brew cask upgrade --greedy
+    brew upgrade --fetch-HEAD --greedy
 
     rustup update
     cargo install-update -a
