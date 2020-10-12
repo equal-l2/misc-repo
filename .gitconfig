@@ -33,3 +33,5 @@
 	helper = osxkeychain
 [protocol]
 	version = 2
+[init]
+	defaultBranch = main
