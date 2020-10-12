@@ -29,10 +29,9 @@ Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'pest-parser/pest.vim'
-Plug 'rhysd/vim-crystal'
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'udalov/kotlin-vim'
 
 " for vim-plugin development
 Plug 'equal-l2/vim-base64'
