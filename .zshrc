@@ -16,6 +16,7 @@ setopt list_packed
 
 autoload -Uz compinit
 fpath+=~/.zfunc
+fpath+=/usr/local/share/zsh/site-functions
 compinit
 
 autoload -U zmv
@@ -74,5 +75,3 @@ EOF
 if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
-
-eval "$(zoxide init zsh)"
