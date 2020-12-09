@@ -149,5 +149,6 @@ autocmd FileType ruby setlocal shiftwidth=2
 autocmd FileType yaml setlocal shiftwidth=2
 autocmd FileType go setlocal tabstop=4
 autocmd FileType javascript setlocal shiftwidth=2
+autocmd FileType vue setlocal shiftwidth=2
 autocmd FileType typescript setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
