@@ -14,28 +14,15 @@ call plug#begin()
 Plug 'morhetz/gruvbox'
 
 " improvements
-Plug 'bling/vim-bufferline'
-Plug 'codota/tabnine-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
-Plug 'w0rp/ale'
+
+" coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " project integration
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
-
-" syntax highlighting
-Plug 'aklt/plantuml-syntax'
-Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'rust-lang/rust.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'udalov/kotlin-vim'
-
-" for vim-plugin development
-Plug 'equal-l2/vim-base64'
-Plug 'vim-jp/vital.vim'
 
 call plug#end()
 
@@ -47,32 +34,23 @@ augroup qs_colors
   autocmd ColorScheme * highlight QuickScopePrimary guifg=bg guibg=fg
 augroup END
 
-" ale settings
-let s:clang_opts = '-Weverything -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-covered-switch-default'
-let g:ale_c_clang_options= '-std=c11 ' . s:clang_opts
-let g:ale_cpp_clang_options='-std=c++2a ' . s:clang_opts . ' -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-global-constructors'
-let g:ale_java_javac_executable = 'jfxc'
-let g:ale_lint_delay=3500
-let g:ale_linters = {
-            \'c'    : ['clang', 'cppcheck'],
-            \'cpp'  : ['clang'],
-            \'go'  : ['gofmt', 'golangci-lint', 'golint', 'gotype', 'govet', 'staticcheck'],
-            \'python'  : ['flake8', 'bandit', 'pylint'],
-            \'ruby' : [],
-            \}
-let g:ale_python_bandit_options = '--skip B322'
-let g:ale_python_flake8_options = '--ignore=E741,E241'
-let g:ale_python_pylint_options = '--disable=C0111'
-let g:ale_virtualtext_cursor = 1
-
 " config for colorscheme
 if &termguicolors
     colorscheme gruvbox
     let g:gruvbox_contrast_dark='hard'
     let g:gruvbox_invert_selection=0
     let g:lightline = {
-                \    'colorscheme': 'gruvbox'
-                \}
+    \   'colorscheme': 'gruvbox',
+    \   'active': {
+    \     'left': [
+    \       [ 'mode', 'paste' ],
+    \       [ 'cocstatus', 'readonly', 'filename', 'modified' ]
+    \     ]
+    \   },
+    \   'component_function': {
+    \     'cocstatus': 'coc#status'
+    \   },
+    \ }
 endif
 
 " config for latex
@@ -81,6 +59,46 @@ let g:tex_conceal=''
 
 " config for netrw
 let g:netrw_cygwin=0
+
+" config for coc
+set shortmess+=c
+
+" extensions
+let g:coc_global_extensions = [
+    \ 'coc-clangd',
+    \ 'coc-go',
+    \ 'coc-html',
+    \ 'coc-json',
+    \ 'coc-pyright',
+    \ 'coc-rust-analyzer',
+    \ 'coc-tabnine',
+    \ 'coc-toml',
+    \ 'coc-tsserver',
+    \ 'coc-vimlsp',
+\ ]
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+
+command! -nargs=0 CRename :call CocActionAsync('rename')
+command! -nargs=0 CFormat :call CocActionAsync('format')
+command! -nargs=0 CRefactor :call CocActionAsync('refactor')
+command! -nargs=0 CShowReference :call CocActionAsync('jumpReferences')
+command! -nargs=0 CSignature :call CocActionAsync('doHover')
+nmap <silent> gd <Plug>(coc-definition)
+
+" Use autocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" automatically show outline
+autocmd VimEnter,Tabnew * if empty(&buftype) | call CocActionAsync('showOutline', 1) | endif
 
 " use neovim's default configuration
 set autoindent                 " enable autoindent
@@ -107,6 +125,7 @@ filetype plugin indent on      " enable filetype detection
 if has('nvim')
     set inccommand=nosplit     " show result for replacing incrementally
     set pumblend=5             " make popup transparent
+    " enable esc in terminal
     tnoremap <silent> <ESC> <C-\><C-n>
 endif
 
@@ -133,7 +152,7 @@ set shiftwidth=4               " set indent width
 set signcolumn=yes             " always show signcolumn
 set smartcase                  " search case-sensitively only given uppercase
 set virtualedit=block
-set wildmode=list:longest,full " wildmenu settings
+set wildmode=longest,full      " wildmenu settings
 
 " better line handling for wrapped lines
 noremap j gj
@@ -152,3 +171,4 @@ autocmd FileType javascript setlocal shiftwidth=2
 autocmd FileType vue setlocal shiftwidth=2
 autocmd FileType typescript setlocal shiftwidth=2
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
+autocmd BufNewFile,BufRead *.plt set syntax=gnuplot
