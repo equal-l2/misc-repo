@@ -11,27 +11,41 @@
 	fscache = true
 	excludesfile = ~/.gitignore
 	quotepath = off
+[credential]
+	helper = osxkeychain
 [diff]
 	colorMoved = true
 	algorithm = histogram
 [diff "sqlite3"]
 	binary = true
 	textconv = "echo .dump | sqlite3"
+[init]
+	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
+[merge]
+	ff = no
+[protocol]
+	version = 2
+[pull]
+	ff = only
 [user]
 	name = "equal-l2"
 	email = "eng.equall2@gmail.com"
-[hub]
-	protocol = https
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[pull]
-	ff = only
-[credential]
-	helper = osxkeychain
-[protocol]
-	version = 2
-[init]
-	defaultBranch = main
+[hub]
+	protocol = https
+[delta]
+	features = side-by-side
+	file-style = brightblue
+	file-decoration-style = brightblue ul
+	hunk-header-file-style = brightblue
+	hunk-header-decoration-style = brightblue box
+	hunk-header-line-number-style = brightblue
+	line-numbers-left-style = brightblue
+	line-numbers-right-style = brightblue
