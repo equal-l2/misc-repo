@@ -9,6 +9,8 @@ else
     set termguicolors
 endif
 
+set runtimepath+=$HOME/git/novelang
+
 call plug#begin()
 " colorscheme
 Plug 'morhetz/gruvbox'
@@ -16,9 +18,8 @@ Plug 'morhetz/gruvbox'
 " improvements
 Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
-
-" coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 
 " project integration
 Plug 'editorconfig/editorconfig-vim'
@@ -90,15 +91,21 @@ inoremap <silent><expr> <TAB>
 command! -nargs=0 CRename :call CocActionAsync('rename')
 command! -nargs=0 CFormat :call CocActionAsync('format')
 command! -nargs=0 CRefactor :call CocActionAsync('refactor')
-command! -nargs=0 CShowReference :call CocActionAsync('jumpReferences')
+command! -nargs=0 CReference :call CocActionAsync('jumpReferences')
 command! -nargs=0 CSignature :call CocActionAsync('doHover')
 nmap <silent> gd <Plug>(coc-definition)
 
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-" automatically show outline
-autocmd VimEnter,Tabnew * if empty(&buftype) | call CocActionAsync('showOutline', 1) | endif
+" settings for nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = { enable = true },
+  indentation = { enable = true},
+}
+EOF
 
 " use neovim's default configuration
 set autoindent                 " enable autoindent
@@ -163,12 +170,16 @@ noremap <Up> gk
 autocmd CmdwinEnter [:\/\?=] setlocal nonumber
 autocmd CmdwinEnter [:\/\?=] setlocal signcolumn=no
 
-autocmd FileType kotlin setlocal shiftwidth=4
-autocmd FileType ruby setlocal shiftwidth=2
-autocmd FileType yaml setlocal shiftwidth=2
 autocmd FileType go setlocal tabstop=4
+autocmd FileType kotlin setlocal shiftwidth=4
+
+autocmd FileType css setlocal shiftwidth=2
 autocmd FileType javascript setlocal shiftwidth=2
-autocmd FileType vue setlocal shiftwidth=2
+autocmd FileType ruby setlocal shiftwidth=2
 autocmd FileType typescript setlocal shiftwidth=2
+autocmd FileType typescriptreact setlocal shiftwidth=2
+autocmd FileType vue setlocal shiftwidth=2
+autocmd FileType yaml setlocal shiftwidth=2
+
 autocmd BufNewFile,BufRead *.fxml set syntax=xml
 autocmd BufNewFile,BufRead *.plt set syntax=gnuplot
