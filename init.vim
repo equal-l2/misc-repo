@@ -13,7 +13,7 @@ set runtimepath+=$HOME/git/novelang
 
 call plug#begin()
 " colorscheme
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 
 " improvements
 Plug 'itchyny/lightline.vim'
@@ -37,9 +37,11 @@ augroup END
 
 " config for colorscheme
 if &termguicolors
-    colorscheme gruvbox
-    let g:gruvbox_contrast_dark='hard'
     let g:gruvbox_invert_selection=0
+    let g:gruvbox_italic=1
+
+    colorscheme gruvbox
+
     let g:lightline = {
     \   'colorscheme': 'gruvbox',
     \   'active': {
