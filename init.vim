@@ -17,7 +17,6 @@ Plug 'gruvbox-community/gruvbox'
 
 " improvements
 Plug 'itchyny/lightline.vim'
-Plug 'unblevable/quick-scope'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 
@@ -26,14 +25,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
 
 call plug#end()
-
-" quick-scope setting
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-augroup qs_colors
-  autocmd!
-  autocmd ColorScheme * highlight QuickScopePrimary guifg=bg guibg=fg
-augroup END
 
 " config for colorscheme
 if &termguicolors
@@ -114,7 +105,7 @@ set autoindent                 " enable autoindent
 set autoread                   " automatically re-read the file when detecting a change by others
 set backspace=indent,eol,start " set backspace behavior
 set belloff=all                " don't ring a bell
-set complete=".,w,b,u,t"       " set complete types (excludes i for performance)
+set complete=.,w,b,u,t         " set complete types (excludes i for performance)
 set display=lastline           " ??? show the whole line even for long one
 set hlsearch                   " enable highlighting match
 set incsearch                  " enable incremental search
