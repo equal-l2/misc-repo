@@ -110,7 +110,7 @@ set display=lastline           " ??? show the whole line even for long one
 set hlsearch                   " enable highlighting match
 set incsearch                  " enable incremental search
 set laststatus=2               " always show status bar
-set listchars=tab:>\ ,trail:-,nbsp:+"
+set listchars=tab:>\ ,trail:-,nbsp:+
 set mouse=a                    " enable mouse for all mode
 set ruler                      " show number of line and column where the cursor is
 set showcmd                    " show incomplete command (e.g. show 'y' when hit y key in command mode)
