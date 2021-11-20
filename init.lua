@@ -46,9 +46,6 @@ end
 g.tex_flavor="latex"
 g.tex_conceal=""
 
---  config for netrw
-g.netrw_cygwin=0
-
 --  config for coc
 opt.shortmess:append("c")
 
@@ -73,25 +70,34 @@ cmd([[
     endfunction
 ]])
 
-cmd([[
-    inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ g:Check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
-]])
+vim.api.nvim_set_keymap(
+    "i",
+    "<TAB>",
+    [[pumvisible() ? "\<C-n>" : g:Check_back_space() ? "\<TAB>" :coc#refresh()]],
+    {
+        expr = true,
+        silent = true,
+        noremap = true
+    }
+)
 
 cmd("command! -nargs=0 CRename :call CocActionAsync('rename')")
 cmd("command! -nargs=0 CFormat :call CocActionAsync('format')")
 cmd("command! -nargs=0 CRefactor :call CocActionAsync('refactor')")
 cmd("command! -nargs=0 CReference :call CocActionAsync('jumpReferences')")
 cmd("command! -nargs=0 CSignature :call CocActionAsync('doHover')")
-cmd("nmap <silent> gd <Plug>(coc-definition)")
+vim.api.nvim_set_keymap(
+    "n", "gd", "<Plug>(coc-definition)",
+    {
+        silent = true,
+    }
+)
 
 --  Use autocmd to force lightline update.
 cmd("autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()")
 
 --  settings for nvim-treesitter
-require"nvim-treesitter.configs".setup {
+require("nvim-treesitter.configs").setup {
   ensure_installed = "maintained",
   highlight = { enable = true },
   indentation = { enable = true },
@@ -101,11 +107,16 @@ require"nvim-treesitter.configs".setup {
 opt.inccommand="nosplit"        -- show result for replacing incrementally
 opt.pumblend=5                  -- make popup transparent
 -- enable esc in terminal
-cmd([[tnoremap <silent> <ESC> <C-\><C-n>]])
+vim.api.nvim_set_keymap(
+    "t", "<ESC>", "<C-\\><C-n>",
+    {
+        silent = true,
+        noremap = true
+    }
+)
 
 opt.background="dark"
 opt.breakindent=true           -- apply indent to wrapped line (in case of wrap)
-opt.completeopt="menu"
 opt.conceallevel=0             -- disable concealed text
 opt.cursorline=true            -- hightlight the line where cursor is
 opt.expandtab=true             -- don't use tab, but use space
@@ -129,10 +140,10 @@ opt.virtualedit="block"
 opt.wildmode="longest,full"    -- wildmenu settings
 
 --  better line handling for wrapped lines
-cmd("noremap j gj")
-cmd("noremap k gk")
-cmd("noremap <Down> gj")
-cmd("noremap <Up> gk")
+vim.api.nvim_set_keymap("", "j", "gj", { noremap = true })
+vim.api.nvim_set_keymap("", "k", "gk", { noremap = true })
+vim.api.nvim_set_keymap("", "<Down>", "gj", { noremap = true })
+vim.api.nvim_set_keymap("", "<Up>", "gk", { noremap = true })
 
 cmd("autocmd CmdwinEnter [:\\/\\?=] setlocal nonumber")
 cmd("autocmd CmdwinEnter [:\\/\\?=] setlocal signcolumn=no")
