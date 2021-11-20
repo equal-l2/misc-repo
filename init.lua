@@ -7,19 +7,21 @@ opt.termguicolors = vim.env.COLORTERM == "truecolor"
 
 opt.runtimepath:append("~/git/novalang")
 
-fn["plug#begin"]()
-    --  colorscheme
-    cmd("Plug 'gruvbox-community/gruvbox'")
+require("paq") {
+    "savq/paq-nvim",
 
-    --  improvements
-    cmd("Plug 'itchyny/lightline.vim'")
-    cmd("Plug 'neoclide/coc.nvim', {'branch': 'release'}")
-    cmd("Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}")
+    -- colorscheme
+    "gruvbox-community/gruvbox",
 
-    --  project integration
-    cmd("Plug 'editorconfig/editorconfig-vim'")
-    cmd("Plug 'mhinz/vim-signify'")
-fn["plug#end"]()
+    -- improvements
+    "itchyny/lightline.vim",
+    {"neoclide/coc.nvim", branch="release"},
+    {"nvim-treesitter/nvim-treesitter", branch="0.5-compat"},
+
+    -- project integration
+    "editorconfig/editorconfig-vim",
+    "mhinz/vim-signify"
+}
 
 --  config for colorscheme
 if opt.termguicolors then
