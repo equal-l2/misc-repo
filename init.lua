@@ -7,21 +7,21 @@ opt.termguicolors = vim.env.COLORTERM == "truecolor"
 
 opt.runtimepath:append("~/git/novalang")
 
-require("paq") {
-    "savq/paq-nvim",
+require("packer").startup(function()
+    use "wbthomason/packer.nvim"
 
     -- colorscheme
-    "gruvbox-community/gruvbox",
+    use "gruvbox-community/gruvbox"
 
     -- improvements
-    "itchyny/lightline.vim",
-    {"neoclide/coc.nvim", branch="release"},
-    {"nvim-treesitter/nvim-treesitter", branch="0.5-compat"},
+    use "itchyny/lightline.vim"
+    use {"neoclide/coc.nvim", branch="release"}
+    use {"nvim-treesitter/nvim-treesitter", run=":TSUpdate"}
 
     -- project integration
-    "editorconfig/editorconfig-vim",
-    "mhinz/vim-signify"
-}
+    use "editorconfig/editorconfig-vim"
+    use "mhinz/vim-signify"
+end)
 
 --  config for colorscheme
 if opt.termguicolors then
@@ -54,7 +54,6 @@ opt.shortmess:append("c")
 --  extensions
 g.coc_global_extensions = {
     "coc-clangd",
-    "coc-go",
     "coc-html",
     "coc-json",
     "coc-pyright",
@@ -63,6 +62,7 @@ g.coc_global_extensions = {
     "coc-toml",
     "coc-tsserver",
     "coc-vimlsp",
+    "@yaegassy/coc-volar",
 }
 
 cmd([[
@@ -123,23 +123,24 @@ opt.conceallevel=0             -- disable concealed text
 opt.cursorline=true            -- hightlight the line where cursor is
 opt.expandtab=true             -- don't use tab, but use space
 opt.fileencodings="ucs-bom,utf-8,shift_jis,default,latin1"
-opt.foldmethod="indent"
+opt.fixeol=false               -- do not add new line on the end of file
 opt.foldlevel=15
+opt.foldmethod="indent"
 opt.hidden=true                -- open another buffer even if unsaved changes exist
 opt.ignorecase=true            -- search case-insensitively (overridden by smartcase)
 opt.lazyredraw=true            -- performance improvement
 opt.list=true                  -- show invisible character like tabs or spaces
 opt.matchpairs:append("<:>")   -- match brackets
-opt.fixeol=false               -- do not add new line on the end of file
-opt.showmode=false             -- lightline shows the mode, no need to show it by vim itself
-opt.wrap=false                 -- do not wrap
+opt.mouse="a"                  -- enable mouse on all mode
 opt.number=true                -- show line number
 opt.omnifunc="syntaxcomplete#Complete"
 opt.shiftwidth=4               -- set indent width
+opt.showmode=false             -- lightline shows the mode, no need to show it by vim itself
 opt.signcolumn="yes"           -- always show signcolumn
 opt.smartcase=true             -- search case-sensitively only given uppercase
 opt.virtualedit="block"
 opt.wildmode="longest,full"    -- wildmenu settings
+opt.wrap=false                 -- do not wrap
 
 --  better line handling for wrapped lines
 vim.api.nvim_set_keymap("", "j", "gj", { noremap = true })
