@@ -1,0 +1,5 @@
+[build]
+rustflags=[
+    "-Ctarget-cpu=native",
+    "-Clink-arg=-fuse-ld=lld",
+]
