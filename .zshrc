@@ -14,9 +14,9 @@ setopt auto_pushd
 setopt pushd_to_home
 setopt list_packed
 
-autoload -Uz compinit
 fpath+=~/.zfunc
 fpath+=/usr/local/share/zsh/site-functions
+autoload -Uz compinit
 compinit
 
 autoload -U zmv
@@ -28,7 +28,7 @@ export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export MANPAGER='nvim +Man!'
-export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:$PATH
+export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:~/flutter/bin:$PATH
 export RUST_BACKTRACE=1
 
 # prompt
@@ -78,7 +78,3 @@ antibody bundle <<- EOF
 zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
 EOF
-
-if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
