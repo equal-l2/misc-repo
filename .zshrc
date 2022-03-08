@@ -23,7 +23,7 @@ autoload -U zmv
 bindkey -e
 
 #alias ls='ls -AFG'
-alias ls='gls -AF --color=auto'
+alias ls='uls --color=auto -AF'
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
