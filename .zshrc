@@ -27,7 +27,7 @@ alias ls='uls --color=auto -AF'
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER='nvim +Man!'
 export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:$PATH
 export RUST_BACKTRACE=1
 export RUSTFLAGS="-C target-cpu=native"
