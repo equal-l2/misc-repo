@@ -16,6 +16,7 @@ setopt list_packed
 
 fpath+=~/.zfunc
 fpath+=/usr/local/share/zsh/site-functions
+fpath+=/usr/local/share/zsh-completions
 autoload -Uz compinit
 compinit
 
@@ -73,8 +74,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source <(antibody init)
-antibody bundle <<- EOF
-zsh-users/zsh-completions
-zsh-users/zsh-syntax-highlighting
-EOF
+. /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
