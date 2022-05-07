@@ -1,5 +1,6 @@
 local g = vim.g
 local opt = vim.opt
+local api = vim.api
 
 opt.termguicolors = vim.env.COLORTERM == "truecolor"
 
@@ -70,7 +71,7 @@ vim.cmd([[
     endfunction
 ]])
 
-vim.api.nvim_set_keymap(
+api.nvim_set_keymap(
     "i",
     "<TAB>",
     [[pumvisible() ? "\<C-n>" : g:Check_back_space() ? "\<TAB>" :coc#refresh()]],
@@ -81,12 +82,12 @@ vim.api.nvim_set_keymap(
     }
 )
 
-vim.cmd("command! -nargs=0 CRename :call CocActionAsync('rename')")
-vim.cmd("command! -nargs=0 CFormat :call CocActionAsync('format')")
-vim.cmd("command! -nargs=0 CRefactor :call CocActionAsync('refactor')")
-vim.cmd("command! -nargs=0 CReference :call CocActionAsync('jumpReferences')")
-vim.cmd("command! -nargs=0 CSignature :call CocActionAsync('doHover')")
-vim.api.nvim_set_keymap(
+api.nvim_create_user_command("CRename", ":call CocActionAsync('rename')", {})
+api.nvim_create_user_command("CFormat", ":call CocActionAsync('format')", {})
+api.nvim_create_user_command("CRefactor", ":call CocActionAsync('refactor')", {})
+api.nvim_create_user_command("CReference", ":call CocActionAsync('jumpReferences')", {})
+api.nvim_create_user_command("CSignature", ":call CocActionAsync('doHover')", {})
+api.nvim_set_keymap(
     "n", "gd", "<Plug>(coc-definition)",
     {
         silent = true,
@@ -94,7 +95,7 @@ vim.api.nvim_set_keymap(
 )
 
 --  Use autocmd to force lightline update.
-vim.api.nvim_create_autocmd("User", { pattern = "CocStatusChange,CocDiagnosticChange", callback = "lightline#update()"})
+api.nvim_create_autocmd("User", { pattern = "CocStatusChange,CocDiagnosticChange", callback = "lightline#update()"})
 
 --  settings for nvim-treesitter
 require("nvim-treesitter.configs").setup {
@@ -109,8 +110,9 @@ require("nvim-treesitter.configs").setup {
 --  preference
 opt.inccommand="nosplit"        -- show result for replacing incrementally
 opt.pumblend=5                  -- make popup transparent
+
 -- enable esc in terminal
-vim.api.nvim_set_keymap(
+api.nvim_set_keymap(
     "t", "<ESC>", "<C-\\><C-n>",
     {
         silent = true,
@@ -145,26 +147,26 @@ opt.wildmode="longest,full"    -- wildmenu settings
 opt.wrap=false                 -- do not wrap
 
 --  better line handling for wrapped lines
-vim.api.nvim_set_keymap("", "j", "gj", { noremap = true })
-vim.api.nvim_set_keymap("", "k", "gk", { noremap = true })
-vim.api.nvim_set_keymap("", "<Down>", "gj", { noremap = true })
-vim.api.nvim_set_keymap("", "<Up>", "gk", { noremap = true })
+api.nvim_set_keymap("", "j", "gj", { noremap = true })
+api.nvim_set_keymap("", "k", "gk", { noremap = true })
+api.nvim_set_keymap("", "<Down>", "gj", { noremap = true })
+api.nvim_set_keymap("", "<Up>", "gk", { noremap = true })
 
 -- disable number and signcolumn on command-line window ("q:")
-vim.api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal nonumber" })
-vim.api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal signcolumn=no" })
+api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal nonumber" })
+api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal signcolumn=no" })
 
 -- filetype-specific indent
-vim.api.nvim_create_autocmd("FileType", { pattern = "go", command="setlocal tabstop=4" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "kotlin", command="setlocal shiftwidth=4" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "css", command="setlocal shiftwidth=2" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "javascript", command="setlocal shiftwidth=2" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "ruby", command="setlocal shiftwidth=2" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "typescript", command="setlocal shiftwidth=2" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "typescriptreact", command="setlocal shiftwidth=2" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "vue", command="setlocal shiftwidth=2" })
-vim.api.nvim_create_autocmd("FileType", { pattern = "yaml", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "go", command="setlocal tabstop=4" })
+api.nvim_create_autocmd("FileType", { pattern = "kotlin", command="setlocal shiftwidth=4" })
+api.nvim_create_autocmd("FileType", { pattern = "css", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "javascript", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "ruby", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "typescript", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "typescriptreact", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "vue", command="setlocal shiftwidth=2" })
+api.nvim_create_autocmd("FileType", { pattern = "yaml", command="setlocal shiftwidth=2" })
 
 -- assign filetype for unsupported types by vim
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.fxml", command = "set syntax=xml" })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.plt",  command = "set syntax=gnuplot" })
+api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.fxml", command = "set syntax=xml" })
+api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.plt",  command = "set syntax=gnuplot" })
