@@ -1,11 +1,9 @@
-local cmd = vim.cmd
-local fn = vim.fn
 local g = vim.g
 local opt = vim.opt
 
 opt.termguicolors = vim.env.COLORTERM == "truecolor"
 
-opt.runtimepath:append("~/git/novalang")
+opt.runtimepath:append("~/git/novelang/")
 
 require("packer").startup(function()
     use "wbthomason/packer.nvim"
@@ -15,8 +13,8 @@ require("packer").startup(function()
 
     -- improvements
     use "itchyny/lightline.vim"
-    use {"neoclide/coc.nvim", branch="release"}
-    use {"nvim-treesitter/nvim-treesitter", run=":TSUpdate"}
+    use { "neoclide/coc.nvim", branch="release" }
+    use { "nvim-treesitter/nvim-treesitter", run=":TSUpdate" }
 
     -- project integration
     use "editorconfig/editorconfig-vim"
@@ -28,7 +26,7 @@ if opt.termguicolors then
     g.gruvbox_invert_selection=0
     g.gruvbox_italic=1
 
-    cmd("colorscheme gruvbox")
+    vim.cmd("colorscheme gruvbox")
 
     g.lightline = {
         colorscheme = 'gruvbox',
@@ -65,7 +63,7 @@ g.coc_global_extensions = {
     "@yaegassy/coc-volar",
 }
 
-cmd([[
+vim.cmd([[
     function! g:Check_back_space() abort
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~ '\s'
@@ -83,11 +81,11 @@ vim.api.nvim_set_keymap(
     }
 )
 
-cmd("command! -nargs=0 CRename :call CocActionAsync('rename')")
-cmd("command! -nargs=0 CFormat :call CocActionAsync('format')")
-cmd("command! -nargs=0 CRefactor :call CocActionAsync('refactor')")
-cmd("command! -nargs=0 CReference :call CocActionAsync('jumpReferences')")
-cmd("command! -nargs=0 CSignature :call CocActionAsync('doHover')")
+vim.cmd("command! -nargs=0 CRename :call CocActionAsync('rename')")
+vim.cmd("command! -nargs=0 CFormat :call CocActionAsync('format')")
+vim.cmd("command! -nargs=0 CRefactor :call CocActionAsync('refactor')")
+vim.cmd("command! -nargs=0 CReference :call CocActionAsync('jumpReferences')")
+vim.cmd("command! -nargs=0 CSignature :call CocActionAsync('doHover')")
 vim.api.nvim_set_keymap(
     "n", "gd", "<Plug>(coc-definition)",
     {
@@ -96,11 +94,14 @@ vim.api.nvim_set_keymap(
 )
 
 --  Use autocmd to force lightline update.
-cmd("autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()")
+vim.api.nvim_create_autocmd("User", { pattern = "CocStatusChange,CocDiagnosticChange", callback = "lightline#update()"})
 
 --  settings for nvim-treesitter
 require("nvim-treesitter.configs").setup {
-  ensure_installed = "maintained",
+  ensure_installed = {
+      "lua",
+      "rust",
+  },
   highlight = { enable = true },
   indentation = { enable = true },
 }
@@ -121,13 +122,14 @@ opt.background="dark"
 opt.breakindent=true           -- apply indent to wrapped line (in case of wrap)
 opt.conceallevel=0             -- disable concealed text
 opt.cursorline=true            -- hightlight the line where cursor is
-opt.expandtab=true             -- don't use tab, but use space
+opt.expandtab=true             -- use space instead of tab as indent
 opt.fileencodings="ucs-bom,utf-8,shift_jis,default,latin1"
 opt.fixeol=false               -- do not add new line on the end of file
 opt.foldlevel=15
 opt.foldmethod="indent"
-opt.hidden=true                -- open another buffer even if unsaved changes exist
+opt.hidden=true                -- allow opening another buffer even if unsaved changes exist
 opt.ignorecase=true            -- search case-insensitively (overridden by smartcase)
+opt.laststatus=3               -- global statusline (i.e. not on each windows)
 opt.lazyredraw=true            -- performance improvement
 opt.list=true                  -- show invisible character like tabs or spaces
 opt.matchpairs:append("<:>")   -- match brackets
@@ -148,19 +150,21 @@ vim.api.nvim_set_keymap("", "k", "gk", { noremap = true })
 vim.api.nvim_set_keymap("", "<Down>", "gj", { noremap = true })
 vim.api.nvim_set_keymap("", "<Up>", "gk", { noremap = true })
 
-cmd("autocmd CmdwinEnter [:\\/\\?=] setlocal nonumber")
-cmd("autocmd CmdwinEnter [:\\/\\?=] setlocal signcolumn=no")
+-- disable number and signcolumn on command-line window ("q:")
+vim.api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal nonumber" })
+vim.api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal signcolumn=no" })
 
-cmd("autocmd FileType go setlocal tabstop=4")
-cmd("autocmd FileType kotlin setlocal shiftwidth=4")
+-- filetype-specific indent
+vim.api.nvim_create_autocmd("FileType", { pattern = "go", command="setlocal tabstop=4" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "kotlin", command="setlocal shiftwidth=4" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "css", command="setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "javascript", command="setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "ruby", command="setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "typescript", command="setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "typescriptreact", command="setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "vue", command="setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "yaml", command="setlocal shiftwidth=2" })
 
-cmd("autocmd FileType css setlocal shiftwidth=2")
-cmd("autocmd FileType javascript setlocal shiftwidth=2")
-cmd("autocmd FileType ruby setlocal shiftwidth=2")
-cmd("autocmd FileType typescript setlocal shiftwidth=2")
-cmd("autocmd FileType typescriptreact setlocal shiftwidth=2")
-cmd("autocmd FileType vue setlocal shiftwidth=2")
-cmd("autocmd FileType yaml setlocal shiftwidth=2")
-
-cmd("autocmd BufNewFile,BufRead *.fxml set syntax=xml")
-cmd("autocmd BufNewFile,BufRead *.plt set syntax=gnuplot")
+-- assign filetype for unsupported types by vim
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.fxml", command = "set syntax=xml" })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.plt",  command = "set syntax=gnuplot" })
