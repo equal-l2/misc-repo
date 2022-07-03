@@ -50,9 +50,14 @@ g.tex_conceal=""
 --  config for coc
 opt.shortmess:append("c")
 
+--  config for signify
+g.signify_number_highlight=1
+
 --  extensions
 g.coc_global_extensions = {
+    "@yaegassy/coc-volar",
     "coc-clangd",
+    -- "coc-git",
     "coc-html",
     "coc-json",
     "coc-pyright",
@@ -61,7 +66,6 @@ g.coc_global_extensions = {
     "coc-toml",
     "coc-tsserver",
     "coc-vimlsp",
-    "@yaegassy/coc-volar",
 }
 
 vim.cmd([[
@@ -168,5 +172,5 @@ api.nvim_create_autocmd("FileType", { pattern = "vue", command="setlocal shiftwi
 api.nvim_create_autocmd("FileType", { pattern = "yaml", command="setlocal shiftwidth=2" })
 
 -- assign filetype for unsupported types by vim
-api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.fxml", command = "set syntax=xml" })
-api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.plt",  command = "set syntax=gnuplot" })
+api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.fxml", command = "setfiletype xml" })
+api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.plt",  command = "setfiletype gnuplot" })
