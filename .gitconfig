@@ -11,6 +11,7 @@
 	fscache = true
 	excludesfile = ~/.gitignore
 	quotepath = off
+	fsmonitor = true
 [credential]
 	helper = osxkeychain
 [diff]
