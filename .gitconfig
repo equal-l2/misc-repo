@@ -16,7 +16,6 @@
 	helper = osxkeychain
 [diff]
 	colorMoved = true
-	algorithm = histogram
 [diff "sqlite3"]
 	binary = true
 	textconv = "echo .dump | sqlite3"
@@ -50,3 +49,7 @@
 	hunk-header-line-number-style = brightblue
 	line-numbers-left-style = brightblue
 	line-numbers-right-style = brightblue
+[feature]
+	manyFiles = true
+[fetch]
+	parallel = 0 # use recommended value
