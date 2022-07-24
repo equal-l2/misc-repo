@@ -7,40 +7,40 @@ opt.termguicolors = vim.env.COLORTERM == "truecolor"
 opt.runtimepath:append("~/git/novelang/")
 
 require("packer").startup(function()
-    use "wbthomason/packer.nvim"
+  use "wbthomason/packer.nvim"
 
-    -- colorscheme
-    use "gruvbox-community/gruvbox"
+  -- colorscheme
+  use "gruvbox-community/gruvbox"
 
-    -- improvements
-    use "itchyny/lightline.vim"
-    use { "neoclide/coc.nvim", branch="release" }
-    use { "nvim-treesitter/nvim-treesitter", run=":TSUpdate" }
+  -- improvements
+  use "itchyny/lightline.vim"
+  use { "neoclide/coc.nvim", branch="release" }
+  use { "nvim-treesitter/nvim-treesitter", run=":TSUpdate" }
 
-    -- project integration
-    use "editorconfig/editorconfig-vim"
-    use "mhinz/vim-signify"
+  -- project integration
+  use "editorconfig/editorconfig-vim"
+  use "mhinz/vim-signify"
 end)
 
 --  config for colorscheme
 if opt.termguicolors then
-    g.gruvbox_invert_selection=0
-    g.gruvbox_italic=1
+  g.gruvbox_invert_selection=0
+  g.gruvbox_italic=1
 
-    vim.cmd("colorscheme gruvbox")
+  vim.cmd("colorscheme gruvbox")
 
-    g.lightline = {
-        colorscheme = 'gruvbox',
-        active = {
-            left = {
-                { 'mode', 'paste' },
-                { 'cocstatus', 'readonly', 'filename', 'modified' }
-            }
-        },
-        component_function = {
-            cocstatus = 'coc#status'
-        },
-    }
+  g.lightline = {
+    colorscheme = 'gruvbox',
+    active = {
+      left = {
+        { 'mode', 'paste' },
+        { 'cocstatus', 'readonly', 'filename', 'modified' }
+      }
+    },
+    component_function = {
+      cocstatus = 'coc#status'
+    },
+  }
 end
 
 --  config for latex
@@ -55,35 +55,35 @@ g.signify_number_highlight=1
 
 --  extensions
 g.coc_global_extensions = {
-    "@yaegassy/coc-volar",
-    "coc-clangd",
-    -- "coc-git",
-    "coc-html",
-    "coc-json",
-    "coc-pyright",
-    "coc-rust-analyzer",
-    "coc-tabnine",
-    "coc-toml",
-    "coc-tsserver",
-    "coc-vimlsp",
+  "@yaegassy/coc-volar",
+  "coc-clangd",
+  -- "coc-git",
+  "coc-html",
+  "coc-json",
+  "coc-pyright",
+  "coc-rust-analyzer",
+  "coc-tabnine",
+  "coc-toml",
+  "coc-tsserver",
+  "coc-vimlsp",
 }
 
 vim.cmd([[
-    function! g:Check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
+  function! g:Check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
 ]])
 
 api.nvim_set_keymap(
-    "i",
-    "<TAB>",
-    [[pumvisible() ? "\<C-n>" : g:Check_back_space() ? "\<TAB>" :coc#refresh()]],
-    {
-        expr = true,
-        silent = true,
-        noremap = true
-    }
+  "i",
+  "<TAB>",
+  [[pumvisible() ? "\<C-n>" : g:Check_back_space() ? "\<TAB>" :coc#refresh()]],
+  {
+    expr = true,
+    silent = true,
+    noremap = true
+  }
 )
 
 api.nvim_create_user_command("CRename", ":call CocActionAsync('rename')", {})
@@ -92,10 +92,10 @@ api.nvim_create_user_command("CRefactor", ":call CocActionAsync('refactor')", {}
 api.nvim_create_user_command("CReference", ":call CocActionAsync('jumpReferences')", {})
 api.nvim_create_user_command("CSignature", ":call CocActionAsync('doHover')", {})
 api.nvim_set_keymap(
-    "n", "gd", "<Plug>(coc-definition)",
-    {
-        silent = true,
-    }
+  "n", "gd", "<Plug>(coc-definition)",
+  {
+    silent = true,
+  }
 )
 
 --  Use autocmd to force lightline update.
@@ -104,8 +104,8 @@ api.nvim_create_autocmd("User", { pattern = "CocStatusChange,CocDiagnosticChange
 --  settings for nvim-treesitter
 require("nvim-treesitter.configs").setup {
   ensure_installed = {
-      "lua",
-      "rust",
+    "lua",
+    "rust",
   },
   highlight = { enable = true },
   indentation = { enable = true },
@@ -117,11 +117,11 @@ opt.pumblend=5                  -- make popup transparent
 
 -- enable esc in terminal
 api.nvim_set_keymap(
-    "t", "<ESC>", "<C-\\><C-n>",
-    {
-        silent = true,
-        noremap = true
-    }
+  "t", "<ESC>", "<C-\\><C-n>",
+  {
+    silent = true,
+    noremap = true
+  }
 )
 
 opt.background="dark"
