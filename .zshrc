@@ -14,9 +14,9 @@ setopt auto_pushd
 setopt pushd_to_home
 setopt list_packed
 
-fpath+=~/.zfunc
 fpath+=/usr/local/share/zsh/site-functions
 fpath+=/usr/local/share/zsh-completions
+fpath+=~/.zfunc
 autoload -Uz compinit
 compinit
 
@@ -24,13 +24,16 @@ autoload -U zmv
 bindkey -e
 
 #alias ls='ls -AFG'
-alias ls='uls --color=auto -AF'
+alias ls='uls --color=auto --classify=auto -A'
+alias resccache='sccache --stop-server && sccache --start-server'
+export VOLTA_HOME=$HOME/.volta
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export MANPAGER='nvim +Man!'
-export PATH=~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:~/go/bin:~/flutter/bin:$PATH
+export PATH=$VOLTA_HOME/bin:~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
+export RUSTC_WRAPPER=/usr/local/bin/sccache
 
 # prompt
 setopt prompt_subst
@@ -65,13 +68,19 @@ function daily-update {
     rustup update
     cargo install-update -a
 
-    #pip3 list --outdated --format=columns
     npm up -g
-    antibody update
 }
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 . /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(direnv hook zsh)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then
+    . ~/google-cloud-sdk/path.zsh.inc
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then
+    . ~/google-cloud-sdk/completion.zsh.inc
+fi
