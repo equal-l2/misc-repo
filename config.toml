@@ -2,7 +2,5 @@
 rustflags=[
     "-Ctarget-cpu=native",
     "-Clink-arg=-fuse-ld=mold",
+    "-L/usr/local/opt/libpq/lib",
 ]
-
-[target.x86_64-apple-darwin]
-rustflags = '-L /usr/local/opt/libpq/lib'
