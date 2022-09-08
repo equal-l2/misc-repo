@@ -21,8 +21,6 @@
 	textconv = "echo .dump | sqlite3"
 [init]
 	defaultBranch = main
-[interactive]
-	diffFilter = delta --color-only
 [merge]
 	ff = no
 [protocol]
@@ -38,8 +36,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[hub]
-	protocol = https
 [delta]
 	features = side-by-side
 	file-style = brightblue
