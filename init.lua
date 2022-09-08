@@ -12,29 +12,31 @@ require "packer".startup(function(use)
   use "wbthomason/packer.nvim"
 
   -- lua library
-  use "nvim-lua/plenary.nvim" -- dependency of crates.nvim
+  use "nvim-lua/plenary.nvim"
 
   -- colorscheme
   use "gruvbox-community/gruvbox"
 
   -- improvements
-  use "itchyny/lightline.vim"
+  use "itchyny/lightline.vim" -- TODO: replace with a lua equivalent
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "antoinemadec/FixCursorHold.nvim" -- decouples updatetime from CusorHold
+  use "lukas-reineke/indent-blankline.nvim" -- shows indent guides
+  use "kyazdani42/nvim-tree.lua" -- filer
 
   -- LSP
   use "neovim/nvim-lspconfig"
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
-  use "j-hui/fidget.nvim"
+  use "j-hui/fidget.nvim" -- show the progress of servers
   use "onsails/diaglist.nvim" -- TODO: replace with trouble or nvim-lsputils for reference list
-  use "L3MON4D3/LuaSnip"
-  use "jose-elias-alvarez/null-ls.nvim"
+  use "jose-elias-alvarez/null-ls.nvim" -- adaptor to use non-LSP tools as a LSP code action
 
   -- language-specific LSP extensions
-  use "simrat39/rust-tools.nvim"
-  use "saecki/crates.nvim"
+  use "b0o/schemastore.nvim" -- schemas for JSON
   use "p00f/clangd_extensions.nvim"
+  use "saecki/crates.nvim"
+  use "simrat39/rust-tools.nvim"
 
   -- completion
   use "hrsh7th/nvim-cmp"
@@ -42,12 +44,17 @@ require "packer".startup(function(use)
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-nvim-lua"
   use { "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" }
+  use "L3MON4D3/LuaSnip"
 
   -- project integration
   use "editorconfig/editorconfig-vim"
-  use "mhinz/vim-signify" -- TODO: replace with lua
+  use "lewis6991/gitsigns.nvim"
 
-  -- TODO: telescope?
+  -- UI wrapper
+  use "rcarriga/nvim-notify" -- vim.ui.notify
+  use "stevearc/dressing.nvim" -- vim.ui.select and vim.ui.input
+
+  use "folke/lua-dev.nvim" -- enhanced LSP for neovim's Lua API
 end)
 
 --  config for colorscheme
@@ -57,7 +64,6 @@ if opt.termguicolors then
 
   vim.cmd("colorscheme gruvbox")
 
-  -- TODO: adjust lightline for LSP
   g.lightline = {
     colorscheme = "gruvbox",
     active = {
@@ -66,18 +72,7 @@ if opt.termguicolors then
         { "lspstatus", "readonly", "filename", "modified" }
       }
     },
-    --[[
-    component_function = {
-      lspstatus = function()
-        return vim.diagnostic.get(nil)
-      end
-    },
-    ]]
   }
-  --[=[
-  --  Use autocmd to force lightline update.
-  api.nvim_create_autocmd("User", { pattern = "CocStatusChange,CocDiagnosticChange", callback = "lightline#update()"})
-  ]=]
 end
 
 --  config for latex
@@ -91,7 +86,9 @@ g.signify_number_highlight = 1
 require "nvim-treesitter.configs".setup {
   ensure_installed = {
     "lua",
+    "python",
     "rust",
+    "typescript",
   },
   highlight = { enable = true },
   indentation = { enable = true },
@@ -103,12 +100,11 @@ require "mason-lspconfig".setup {
   automatic_installation = true
 }
 
+-- this must be happen before Lua LSP setup
+require "lua-dev".setup {}
+
 local lspconfig = require "lspconfig"
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function(client, bufnr)
-  -- currently nop
-end
-
 local handlers = {
   ["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
@@ -117,6 +113,10 @@ local handlers = {
     }
   ),
 }
+
+local on_attach = function(client, bufnr)
+  -- currently nop
+end
 
 lspconfig.sumneko_lua.setup {
   capabilities = capabilities,
@@ -168,11 +168,52 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
-lspconfig.taplo.setup {
+lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   handlers = handlers,
+  settings = {
+    javascript = {
+      format = {
+        enable = false
+      },
+      inlayHints = {
+        enumMemberValues = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        parameterNames = {
+          enabled = true,
+          suppressWhenArgumentMatchesName = false,
+        },
+        parameterTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        variableTypes = {
+          enabled = true,
+          suppressWhenTypeMatchesName = false,
+        },
+      }
+    },
+    typescript = {
+      format = {
+        enable = false
+      },
+      inlayHints = {
+        enumMemberValues = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        parameterNames = {
+          enabled = true,
+          suppressWhenArgumentMatchesName = false,
+        },
+        parameterTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        variableTypes = {
+          enabled = true,
+          suppressWhenTypeMatchesName = false,
+        },
+      }
+    }
+  }
 }
+
 lspconfig.pyright.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -196,6 +237,36 @@ require "clangd_extensions".setup {
     handlers = handlers,
     on_attach = on_attach,
     capabilities = capabilities,
+  }
+}
+
+lspconfig.taplo.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  handlers = handlers,
+}
+
+lspconfig.html.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  handlers = handlers,
+}
+
+lspconfig.volar.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  handlers = handlers,
+}
+
+lspconfig.jsonls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  handlers = handlers,
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    }
   }
 }
 
@@ -258,22 +329,18 @@ require "crates".setup {
       loading = " ...",
     },
   },
-  cmp = {
-    text = {
-      prerelease = " pre-release ",
-      yanked = " yanked ",
-    },
-  },
 }
 
 -- nvim-cmp
 g.cursorhold_updatetime = 300 -- time until CursorHold fires
 local cmp = require "cmp"
 local luasnip = require "luasnip"
+
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -322,7 +389,47 @@ cmp.setup {
 }
 
 require "cmp_tabnine.config":setup {}
+
+-- Others
 require "fidget".setup {}
+require "indent_blankline".setup {
+  show_current_context = true,
+}
+require "nvim-tree".setup {
+  renderer = {
+    icons = {
+      show = {
+        file = false,
+        folder = false,
+        folder_arrow = false,
+      },
+      glyphs = {
+        symlink = ""
+      }
+    }
+  },
+  diagnostics = {
+    enable = true,
+    debounce_delay = 100,
+    show_on_dirs = true,
+    icons = {
+      hint = "H",
+      info = "I",
+      warning = "W",
+      error = "E",
+    }
+  }
+}
+
+require "gitsigns".setup {
+  signs = {
+    add          = { text = "+" },
+    change       = { text = "!" },
+    delete       = { text = "_", show_count = true },
+    topdelete    = { text = "‾" },
+    changedelete = { text = "!", show_count = true },
+  }
+}
 
 --  preference
 opt.background = "dark"
@@ -345,7 +452,7 @@ opt.number = true -- show line number
 opt.pumblend = 5 -- make popup transparent
 opt.shiftwidth = 4 -- set indent width
 opt.shortmess:append("c") -- don't show message about completions
-opt.showmode = false -- lightline shows the mode, no need to show it by vim itself
+opt.showmode = false -- I want the mode to be shown in the statusline
 opt.signcolumn = "yes" -- always show signcolumn
 opt.smartcase = true -- search case-sensitively only given uppercase
 opt.virtualedit = "block"
