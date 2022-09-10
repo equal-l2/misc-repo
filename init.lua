@@ -18,7 +18,7 @@ require "packer".startup(function(use)
   use "gruvbox-community/gruvbox"
 
   -- improvements
-  use "itchyny/lightline.vim" -- TODO: replace with a lua equivalent
+  use "nvim-lualine/lualine.nvim"
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "antoinemadec/FixCursorHold.nvim" -- decouples updatetime from CusorHold
   use "lukas-reineke/indent-blankline.nvim" -- shows indent guides
@@ -37,6 +37,7 @@ require "packer".startup(function(use)
   use "p00f/clangd_extensions.nvim"
   use "saecki/crates.nvim"
   use "simrat39/rust-tools.nvim"
+  use "folke/lua-dev.nvim" -- enhanced LSP for neovim's Lua API
 
   -- completion
   use "hrsh7th/nvim-cmp"
@@ -44,6 +45,7 @@ require "packer".startup(function(use)
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-nvim-lua"
   use { "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" }
+  use "saadparwaiz1/cmp_luasnip"
   use "L3MON4D3/LuaSnip"
 
   -- project integration
@@ -54,33 +56,68 @@ require "packer".startup(function(use)
   use "rcarriga/nvim-notify" -- vim.ui.notify
   use "stevearc/dressing.nvim" -- vim.ui.select and vim.ui.input
 
-  use "folke/lua-dev.nvim" -- enhanced LSP for neovim's Lua API
+  use "dstein64/vim-startuptime"
+  use "norcalli/nvim-colorizer.lua"
 end)
 
 --  config for colorscheme
 if opt.termguicolors then
   g.gruvbox_invert_selection = 0
   g.gruvbox_italic = 1
-
   vim.cmd("colorscheme gruvbox")
-
-  g.lightline = {
-    colorscheme = "gruvbox",
-    active = {
-      left = {
-        { "mode", "paste" },
-        { "lspstatus", "readonly", "filename", "modified" }
-      }
-    },
-  }
 end
+
+local function paste()
+  if vim.opt.paste:get() then
+    return "PASTE"
+  else
+    return ""
+  end
+end
+
+local function readonly()
+  if vim.opt.readonly:get() then
+    return "%R"
+  else
+    return ""
+  end
+end
+
+local function modified()
+  if vim.opt.modified:get() or not vim.opt.modifiable:get() then
+    return "%M"
+  else
+    return ""
+  end
+end
+
+require "lualine".setup {
+  options = {
+    icons_enabled = false,
+    component_separators = "|",
+    section_separators = "",
+  },
+  sections = {
+    lualine_a = { "mode", paste },
+    lualine_b = { "diagnostics" },
+    lualine_c = {
+      readonly,
+      {
+        "filename",
+        file_status = false,
+      },
+      modified
+    },
+    lualine_x = { "fileformat", "encoding", "filetype" },
+    lualine_y = { "%3p%%" },
+    lualine_z = { "location" }
+  },
+  inactive_sections = {}
+}
 
 --  config for latex
 g.tex_flavor = "latex"
 g.tex_conceal = ""
-
---  config for signify
-g.signify_number_highlight = 1
 
 --  settings for nvim-treesitter
 require "nvim-treesitter.configs".setup {
@@ -105,14 +142,7 @@ require "lua-dev".setup {}
 
 local lspconfig = require "lspconfig"
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local handlers = {
-  ["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      virtual_text = false,
-    }
-  ),
-}
+local handlers = {}
 
 local on_attach = function(client, bufnr)
   -- currently nop
@@ -220,15 +250,6 @@ lspconfig.pyright.setup {
   handlers = handlers,
   settings = {
     analysis = { typeCheckingMode = "strict" }
-  }
-}
-
-lspconfig.solargraph.setup {
-  handlers = handlers,
-  settings = {
-    solargraph = {
-      diagnostics = true
-    }
   }
 }
 
@@ -344,7 +365,7 @@ end
 cmp.setup {
   snippet = {
     expand = function(args)
-      require "luasnip".lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   view = {
@@ -368,23 +389,27 @@ cmp.setup {
       elseif has_words_before() then
         cmp.complete()
       else
-        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        fallback()
       end
-    end),
-    -- ["<right>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.confirm()
-    --   else
-    --     fallback() -- if you use vim-endwise, this fallback will behave the same as vim-endwise.
-    --   end
-    -- end,
-    ["<left>"] = function(fallback)
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.abort()
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
-        fallback() -- if you use vim-endwise, this fallback will behave the same as vim-endwise.
+        fallback()
       end
-    end,
+    end, { "i", "s" }),
+
+    ["<Right>"] = cmp.mapping(function(fallback)
+      if cmp.get_selected_entry() ~= nil and cmp.visible() then
+        cmp.confirm()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   }
 }
 
@@ -430,6 +455,8 @@ require "gitsigns".setup {
     changedelete = { text = "!", show_count = true },
   }
 }
+
+require "colorizer".setup()
 
 --  preference
 opt.background = "dark"
