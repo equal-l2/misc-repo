@@ -60,7 +60,7 @@ require "packer".startup(function(use)
   use "norcalli/nvim-colorizer.lua"
 end)
 
---  config for colorscheme
+-- config for colorscheme
 if opt.termguicolors then
   g.gruvbox_invert_selection = 0
   g.gruvbox_italic = 1
@@ -96,6 +96,7 @@ require "lualine".setup {
     icons_enabled = false,
     component_separators = "|",
     section_separators = "",
+    globalstatus = true,
   },
   sections = {
     lualine_a = { "mode", paste },
@@ -110,7 +111,7 @@ require "lualine".setup {
     },
     lualine_x = { "fileformat", "encoding", "filetype" },
     lualine_y = { "%3p%%" },
-    lualine_z = { "location" }
+    lualine_z = { "location" },
   },
   inactive_sections = {}
 }
