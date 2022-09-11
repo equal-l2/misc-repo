@@ -1,4 +1,3 @@
---  settings for nvim-treesitter
 require "nvim-treesitter.configs".setup {
   ensure_installed = {
     "lua",
@@ -10,11 +9,12 @@ require "nvim-treesitter.configs".setup {
   indentation = { enable = true },
 }
 
--- Others
 require "fidget".setup {}
+
 require "indent_blankline".setup {
   show_current_context = true,
 }
+
 require "nvim-tree".setup {
   renderer = {
     icons = {

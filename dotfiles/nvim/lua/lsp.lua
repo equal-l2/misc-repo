@@ -8,160 +8,95 @@ require "mason-lspconfig".setup {
 require "lua-dev".setup {}
 
 local lspconfig = require "lspconfig"
-local capabilities = require "cmp_nvim_lsp".update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local handlers = {}
 
-local on_attach = function(client, bufnr)
-  -- currently nop
+local base_config = {
+  capabilities = require "cmp_nvim_lsp".update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = function(client, bufnr)
+    -- no-op currently
+  end,
+  handlers = {},
+}
+
+local function lsp_setup(M, settings)
+  local config = vim.tbl_extend("error", base_config, { settings = settings })
+  M.setup(config)
 end
 
-lspconfig.sumneko_lua.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  handlers = handlers,
-  settings = {
-    Lua = {
-      runtime = {
-        version = "LuaJIT"
-      },
-      diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true)
-      },
-      format = {
-        enable = true,
-        defaultConfig = {
-          quote_style = "double",
-        }
-      }
-    }
-  },
-}
-
-lspconfig.rust_analyzer.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  handlers = handlers,
-  settings = {
-    ["rust-analyzer"] = {
-      inlayHints = {
-        bindingHints = { enable = true },
-        closureReturnTypeHints = { enable = true }
-      },
-      lens = {
-        references = {
-          adt = { enable = true },
-          enumVariant = { enable = true },
-          method = { enable = true },
-          trait = { true }
-        }
-      },
-      rustc = {
-        source = "discover"
-      }
+lsp_setup(lspconfig.sumneko_lua, {
+  Lua = {
+    runtime = { version = "LuaJIT" },
+    diagnostics = { globals = { "vim" } },
+    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+    format = {
+      enable = true,
+      defaultConfig = { quote_style = "double" },
     }
   }
-}
+})
 
-lspconfig.tsserver.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = handlers,
-  settings = {
-    javascript = {
-      format = {
-        enable = false
-      },
-      inlayHints = {
-        enumMemberValues = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        parameterNames = {
-          enabled = true,
-          suppressWhenArgumentMatchesName = false,
-        },
-        parameterTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        variableTypes = {
-          enabled = true,
-          suppressWhenTypeMatchesName = false,
-        },
+lsp_setup(lspconfig.rust_analyzer, {
+  ["rust-analyzer"] = {
+    inlayHints = {
+      bindingHints = { enable = true },
+      closureReturnTypeHints = { enable = true }
+    },
+    lens = {
+      references = {
+        adt = { enable = true },
+        enumVariant = { enable = true },
+        method = { enable = true },
+        trait = { true }
       }
     },
-    typescript = {
-      format = {
-        enable = false
-      },
-      inlayHints = {
-        enumMemberValues = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        parameterNames = {
-          enabled = true,
-          suppressWhenArgumentMatchesName = false,
-        },
-        parameterTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        variableTypes = {
-          enabled = true,
-          suppressWhenTypeMatchesName = false,
-        },
-      }
+    rustc = {
+      source = "discover"
     }
   }
-}
+})
 
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = handlers,
-  settings = {
-    analysis = { typeCheckingMode = "strict" }
+local tsserver_settings = {
+  format = { enable = false },
+  inlayHints = {
+    enumMemberValues = { enabled = true },
+    functionLikeReturnTypes = { enabled = true },
+    parameterNames = {
+      enabled = true,
+      suppressWhenArgumentMatchesName = false,
+    },
+    parameterTypes = { enabled = true },
+    propertyDeclarationTypes = { enabled = true },
+    variableTypes = {
+      enabled = true,
+      suppressWhenTypeMatchesName = false,
+    },
   }
 }
 
-require "clangd_extensions".setup {
-  server = { -- server setup args
-    handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
+lsp_setup(lspconfig.tsserver, {
+  javascript = tsserver_settings,
+  typescript = tsserver_settings,
+})
+
+lsp_setup(lspconfig.pyright, {
+  analysis = { typeCheckingMode = "strict" }
+})
+
+lsp_setup(lspconfig.jsonls, {
+  json = {
+    schemas = require "schemastore".json.schemas(),
+    validate = { enable = true },
   }
-}
+})
 
-lspconfig.taplo.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = handlers,
-}
-
-lspconfig.html.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = handlers,
-}
-
-lspconfig.volar.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = handlers,
-}
-
-lspconfig.jsonls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = handlers,
-  settings = {
-    json = {
-      schemas = require "schemastore".json.schemas(),
-      validate = { enable = true },
-    }
-  }
-}
+lsp_setup(lspconfig.taplo)
+lsp_setup(lspconfig.html)
+lsp_setup(lspconfig.volar)
 
 -- LSP extensions
-require "null-ls".setup {}
-require "diaglist".init {}
-require "rust-tools".setup {}
+require "clangd_extensions".setup {
+  server = base_config
+}
+
 require "crates".setup {
   null_ls = {
     enabled = true
@@ -198,3 +133,7 @@ require "crates".setup {
     },
   },
 }
+
+require "null-ls".setup {}
+require "diaglist".init {}
+require "rust-tools".setup {}
