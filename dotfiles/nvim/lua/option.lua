@@ -28,10 +28,11 @@ api.nvim_create_user_command("LFormat", noarg(vim.lsp.buf.formatting), {})
 -- TODO: fix LRename to show progress (by LSP handler?)
 api.nvim_create_user_command("LRename", noarg(vim.lsp.buf.rename), {})
 api.nvim_create_user_command("LAction", noarg(vim.lsp.buf.code_action), {})
-api.nvim_create_user_command("LDiagnostic", noarg(require "diaglist".open_all_diagnostics), {})
+api.nvim_create_user_command("LDiagnostic", "Trouble workspace_diagnostics", {})
 -- TODO: fix LReference to show quickfix location source
-api.nvim_create_user_command("LReference", noarg(vim.lsp.buf.references), {})
-keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
+api.nvim_create_user_command("LReference", "Trouble lsp_references", {})
+keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>", { noremap = true, silent = true })
+keymap.set("n", "gtd", "<cmd>Trouble lsp_type_definitions<cr>", { noremap = true, silent = true })
 keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
 
 -- show popup for errors

@@ -6,6 +6,14 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local confirm = cmp.mapping(function(fallback)
+  if cmp.get_selected_entry() ~= nil and cmp.visible() then
+    cmp.confirm()
+  else
+    fallback()
+  end
+end, { "i", "s" })
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -47,13 +55,8 @@ cmp.setup {
       end
     end, { "i", "s" }),
 
-    ["<Right>"] = cmp.mapping(function(fallback)
-      if cmp.get_selected_entry() ~= nil and cmp.visible() then
-        cmp.confirm()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+    ["<Right>"] = confirm,
+    ["<CR>"] = confirm,
   }
 }
 

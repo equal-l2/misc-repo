@@ -20,7 +20,7 @@ require "packer".startup(function(use)
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
   use "j-hui/fidget.nvim" -- show the progress of servers
-  use "onsails/diaglist.nvim" -- TODO: replace with trouble or nvim-lsputils for reference list
+  use "folke/trouble.nvim"
   use "jose-elias-alvarez/null-ls.nvim" -- adaptor to use non-LSP tools as a LSP code action
 
   -- language-specific LSP extensions
