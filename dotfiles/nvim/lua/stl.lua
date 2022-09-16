@@ -22,7 +22,7 @@ local function modified()
   end
 end
 
-require "lualine".setup {
+require("lualine").setup({
   options = {
     icons_enabled = false,
     component_separators = "|",
@@ -38,11 +38,11 @@ require "lualine".setup {
         "filename",
         file_status = false,
       },
-      modified
+      modified,
     },
     lualine_x = { "fileformat", "encoding", "filetype" },
     lualine_y = { "%3p%%" },
     lualine_z = { "location" },
   },
-  inactive_sections = {}
-}
+  inactive_sections = {},
+})

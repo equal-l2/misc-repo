@@ -1,4 +1,4 @@
-require "nvim-treesitter.configs".setup {
+require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "lua",
     "python",
@@ -7,15 +7,15 @@ require "nvim-treesitter.configs".setup {
   },
   highlight = { enable = true },
   indentation = { enable = true },
-}
+})
 
-require "fidget".setup {}
+require("fidget").setup()
 
-require "indent_blankline".setup {
+require("indent_blankline").setup({
   show_current_context = true,
-}
+})
 
-require "nvim-tree".setup {
+require("nvim-tree").setup({
   renderer = {
     icons = {
       show = {
@@ -24,9 +24,9 @@ require "nvim-tree".setup {
         folder_arrow = false,
       },
       glyphs = {
-        symlink = ""
-      }
-    }
+        symlink = "",
+      },
+    },
   },
   diagnostics = {
     enable = true,
@@ -37,18 +37,18 @@ require "nvim-tree".setup {
       info = "I",
       warning = "W",
       error = "E",
-    }
-  }
-}
+    },
+  },
+})
 
-require "gitsigns".setup {
+require("gitsigns").setup({
   signs = {
-    add          = { text = "+" },
-    change       = { text = "!" },
-    delete       = { text = "_", show_count = true },
-    topdelete    = { text = "‾" },
+    add = { text = "+" },
+    change = { text = "!" },
+    delete = { text = "_", show_count = true },
+    topdelete = { text = "‾" },
     changedelete = { text = "!", show_count = true },
-  }
-}
+  },
+})
 
-require "colorizer".setup()
+require("colorizer").setup()

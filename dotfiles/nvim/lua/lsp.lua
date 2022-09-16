@@ -1,16 +1,16 @@
 -- settings for LSP
-require "mason".setup {}
-require "mason-lspconfig".setup {
-  automatic_installation = true
-}
+require("mason").setup()
+require("mason-lspconfig").setup({
+  automatic_installation = true,
+})
 
 -- this must be happen before Lua LSP setup
-require "lua-dev".setup {}
+require("lua-dev").setup()
 
-local lspconfig = require "lspconfig"
+local lspconfig = require("lspconfig")
 
 local base_config = {
-  capabilities = require "cmp_nvim_lsp".update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
   on_attach = function(client, bufnr)
     -- no-op currently
   end,
@@ -22,7 +22,7 @@ local function lsp_setup(M, settings)
   M.setup(config)
 end
 
-lspconfig.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup({
   capabilities = base_config.capabilities,
   on_attach = function(client)
     client.resolved_capabilities.document_formatting = false
@@ -33,28 +33,28 @@ lspconfig.sumneko_lua.setup {
       runtime = { version = "LuaJIT" },
       diagnostics = { globals = { "vim" } },
       workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-    }
-  }
-}
+    },
+  },
+})
 
 lsp_setup(lspconfig.rust_analyzer, {
   ["rust-analyzer"] = {
     inlayHints = {
       bindingHints = { enable = true },
-      closureReturnTypeHints = { enable = true }
+      closureReturnTypeHints = { enable = true },
     },
     lens = {
       references = {
         adt = { enable = true },
         enumVariant = { enable = true },
         method = { enable = true },
-        trait = { true }
-      }
+        trait = { true },
+      },
     },
     rustc = {
-      source = "discover"
-    }
-  }
+      source = "discover",
+    },
+  },
 })
 
 local tsserver_settings = {
@@ -72,7 +72,7 @@ local tsserver_settings = {
       enabled = true,
       suppressWhenTypeMatchesName = false,
     },
-  }
+  },
 }
 
 lsp_setup(lspconfig.tsserver, {
@@ -81,14 +81,14 @@ lsp_setup(lspconfig.tsserver, {
 })
 
 lsp_setup(lspconfig.pyright, {
-  analysis = { typeCheckingMode = "strict" }
+  analysis = { typeCheckingMode = "strict" },
 })
 
 lsp_setup(lspconfig.jsonls, {
   json = {
-    schemas = require "schemastore".json.schemas(),
+    schemas = require("schemastore").json.schemas(),
     validate = { enable = true },
-  }
+  },
 })
 
 lsp_setup(lspconfig.taplo)
@@ -96,13 +96,13 @@ lsp_setup(lspconfig.html)
 lsp_setup(lspconfig.volar)
 
 -- LSP extensions
-require "clangd_extensions".setup {
-  server = base_config
-}
+require("clangd_extensions").setup({
+  server = base_config,
+})
 
-require "crates".setup {
+require("crates").setup({
   null_ls = {
-    enabled = true
+    enabled = true,
   },
   text = {
     loading = "  Loading...",
@@ -135,16 +135,16 @@ require "crates".setup {
       loading = " ...",
     },
   },
-}
+})
 
-local null_ls = require "null-ls"
-null_ls.setup {
+local null_ls = require("null-ls")
+null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.stylua
-  }
-}
+    null_ls.builtins.formatting.stylua,
+  },
+})
 
-require "trouble".setup {
+require("trouble").setup({
   icons = false,
   fold_open = "v", -- icon used for open folds
   fold_closed = ">", -- icon used for closed folds
@@ -159,5 +159,5 @@ require "trouble".setup {
   },
   use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
   auto_jump = { "lsp_definitions", "lsp_type_definitions" },
-}
-require "rust-tools".setup {}
+})
+require("rust-tools").setup()

@@ -1,5 +1,5 @@
-local cmp = require "cmp"
-local luasnip = require "luasnip"
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -14,14 +14,14 @@ local confirm = cmp.mapping(function(fallback)
   end
 end, { "i", "s" })
 
-cmp.setup {
+cmp.setup({
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
   view = {
-    entries = "native"
+    entries = "native",
   },
   sources = {
     { name = "buffer" },
@@ -57,7 +57,7 @@ cmp.setup {
 
     ["<Right>"] = confirm,
     ["<CR>"] = confirm,
-  }
-}
+  },
+})
 
-require "cmp_tabnine.config":setup {}
+require("cmp_tabnine.config"):setup()

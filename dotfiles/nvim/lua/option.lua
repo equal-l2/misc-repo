@@ -16,7 +16,6 @@ end
 g.tex_flavor = "latex"
 g.tex_conceal = ""
 
-
 local function noarg(func)
   return function()
     func()
@@ -31,6 +30,7 @@ api.nvim_create_user_command("LAction", noarg(vim.lsp.buf.code_action), {})
 api.nvim_create_user_command("LDiagnostic", "Trouble workspace_diagnostics", {})
 -- TODO: fix LReference to show quickfix location source
 api.nvim_create_user_command("LReference", "Trouble lsp_references", {})
+
 keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>", { noremap = true, silent = true })
 keymap.set("n", "gtd", "<cmd>Trouble lsp_type_definitions<cr>", { noremap = true, silent = true })
 keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
@@ -69,13 +69,10 @@ opt.wildmode = "longest,full" -- wildmenu settings
 opt.wrap = false -- do not wrap
 
 -- enable esc in terminal
-keymap.set(
-  "t", "<ESC>", "<C-\\><C-n>",
-  {
-    silent = true,
-    noremap = true
-  }
-)
+keymap.set("t", "<ESC>", "<C-\\><C-n>", {
+  silent = true,
+  noremap = true,
+})
 
 --  better line handling for wrapped lines
 keymap.set("", "j", "gj", { noremap = true })
