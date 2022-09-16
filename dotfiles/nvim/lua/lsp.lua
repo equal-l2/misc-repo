@@ -22,17 +22,20 @@ local function lsp_setup(M, settings)
   M.setup(config)
 end
 
-lsp_setup(lspconfig.sumneko_lua, {
-  Lua = {
-    runtime = { version = "LuaJIT" },
-    diagnostics = { globals = { "vim" } },
-    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-    format = {
-      enable = true,
-      defaultConfig = { quote_style = "double" },
+lspconfig.sumneko_lua.setup {
+  capabilities = base_config.capabilities,
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = false
+  end,
+  handlers = base_config.handlers,
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
+      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
     }
   }
-})
+}
 
 lsp_setup(lspconfig.rust_analyzer, {
   ["rust-analyzer"] = {
@@ -134,7 +137,13 @@ require "crates".setup {
   },
 }
 
-require "null-ls".setup {}
+local null_ls = require "null-ls"
+null_ls.setup {
+  sources = {
+    null_ls.builtins.formatting.stylua
+  }
+}
+
 require "trouble".setup {
   icons = false,
   fold_open = "v", -- icon used for open folds
