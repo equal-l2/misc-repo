@@ -5,15 +5,58 @@ require("mason-lspconfig").setup({
 })
 
 -- this must be happen before Lua LSP setup
-require("lua-dev").setup()
+require("neodev").setup({})
 
-local lspconfig = require("lspconfig")
+vim.g.cursorhold_updatetime = 300 -- time until CursorHold fires
+
+-- encourage use of <C-[>
+vim.keymap.set("n", "gd", [[<cmd>echo "gd is disabled! use <C-[>"<cr>]], { noremap = true, silent = true })
+
+local base_on_attach = function(client, bufnr)
+  local api = vim.api
+  local keymap = vim.keymap
+
+  local function noarg(func)
+    return function()
+      func()
+    end
+  end
+
+  -- define keymap and commands for LSP
+  api.nvim_buf_create_user_command(bufnr, "LFormat", noarg(vim.lsp.buf.format), {})
+  api.nvim_buf_create_user_command(bufnr, "LRename", noarg(vim.lsp.buf.rename), {})
+  api.nvim_buf_create_user_command(bufnr, "LAction", noarg(vim.lsp.buf.code_action), {})
+  api.nvim_buf_create_user_command(bufnr, "LDiagnostic", "Trouble workspace_diagnostics", {})
+  api.nvim_buf_create_user_command(bufnr, "LReference", "Trouble lsp_references", {})
+
+  keymap.set("n", "gtd", "<cmd>Trouble lsp_type_definitions<cr>", { noremap = true, silent = true })
+  keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
+
+  -- show popup for errors
+  local groupname = "MyLspPopup" .. bufnr
+  api.nvim_create_augroup(groupname, {})
+  api.nvim_create_autocmd("CursorHold", {
+    group = groupname,
+    buffer = bufnr,
+    callback = function()
+      vim.diagnostic.open_float({
+        focus = false,
+      })
+    end,
+  })
+
+  api.nvim_create_autocmd("BufDelete", {
+    group = groupname,
+    buffer = bufnr,
+    callback = function()
+      api.nvim_del_augroup_by_name(groupname)
+    end,
+  })
+end
 
 local base_config = {
-  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  on_attach = function(client, bufnr)
-    -- no-op currently
-  end,
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  on_attach = base_on_attach,
   handlers = {},
 }
 
@@ -22,10 +65,13 @@ local function lsp_setup(M, settings)
   M.setup(config)
 end
 
+local lspconfig = require("lspconfig")
+
 lspconfig.sumneko_lua.setup({
   capabilities = base_config.capabilities,
-  on_attach = function(client)
-    client.resolved_capabilities.document_formatting = false
+  on_attach = function(client, bufnr)
+    base_on_attach(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
   end,
   handlers = base_config.handlers,
   settings = {
@@ -37,25 +83,26 @@ lspconfig.sumneko_lua.setup({
   },
 })
 
-lsp_setup(lspconfig.rust_analyzer, {
-  ["rust-analyzer"] = {
-    inlayHints = {
-      bindingHints = { enable = true },
-      closureReturnTypeHints = { enable = true },
-    },
-    lens = {
-      references = {
-        adt = { enable = true },
-        enumVariant = { enable = true },
-        method = { enable = true },
-        trait = { true },
-      },
-    },
-    rustc = {
-      source = "discover",
-    },
-  },
-})
+-- This will be done by rust-tools
+-- lsp_setup(lspconfig.rust_analyzer, {
+--   ["rust-analyzer"] = {
+--     inlayHints = {
+--       bindingHints = { enable = true },
+--       closureReturnTypeHints = { enable = true },
+--     },
+--     lens = {
+--       references = {
+--         adt = { enable = true },
+--         enumVariant = { enable = true },
+--         method = { enable = true },
+--         trait = { true },
+--       },
+--     },
+--     rustc = {
+--       source = "discover",
+--     },
+--   },
+-- })
 
 local tsserver_settings = {
   format = { enable = false },
@@ -160,4 +207,12 @@ require("trouble").setup({
   use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
   auto_jump = { "lsp_definitions", "lsp_type_definitions" },
 })
-require("rust-tools").setup()
+
+-- TODO: use rust-tools specific api to implement commands and key bindings
+require("rust-tools").setup({
+  server = {
+    capabilities = base_config.capabilities,
+    on_attach = base_config.on_attach,
+    handlers = base_config.handlers,
+  },
+})

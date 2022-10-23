@@ -13,7 +13,6 @@ require("packer").startup(function(use)
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("antoinemadec/FixCursorHold.nvim") -- decouples updatetime from CusorHold
   use("lukas-reineke/indent-blankline.nvim") -- shows indent guides
-  use("kyazdani42/nvim-tree.lua") -- filer
 
   -- LSP
   use("neovim/nvim-lspconfig")
@@ -28,13 +27,14 @@ require("packer").startup(function(use)
   use("p00f/clangd_extensions.nvim")
   use("saecki/crates.nvim")
   use("simrat39/rust-tools.nvim")
-  use("folke/lua-dev.nvim") -- enhanced LSP for neovim's Lua API
+  use("folke/neodev.nvim") -- enhanced LSP for neovim's Lua API
 
   -- completion
   use("hrsh7th/nvim-cmp")
   use("hrsh7th/cmp-nvim-lsp")
-  use("hrsh7th/cmp-path")
+  use("hrsh7th/cmp-nvim-lsp-signature-help")
   use("hrsh7th/cmp-nvim-lua")
+  use("hrsh7th/cmp-path")
   use({ "tzachar/cmp-tabnine", run = "./install.sh" })
   use("saadparwaiz1/cmp_luasnip")
   use("L3MON4D3/LuaSnip")

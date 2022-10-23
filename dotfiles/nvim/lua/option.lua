@@ -16,30 +16,6 @@ end
 g.tex_flavor = "latex"
 g.tex_conceal = ""
 
-local function noarg(func)
-  return function()
-    func()
-  end
-end
-
--- define keymap and commands for LSP
-api.nvim_create_user_command("LFormat", noarg(vim.lsp.buf.formatting), {})
--- TODO: fix LRename to show progress (by LSP handler?)
-api.nvim_create_user_command("LRename", noarg(vim.lsp.buf.rename), {})
-api.nvim_create_user_command("LAction", noarg(vim.lsp.buf.code_action), {})
-api.nvim_create_user_command("LDiagnostic", "Trouble workspace_diagnostics", {})
--- TODO: fix LReference to show quickfix location source
-api.nvim_create_user_command("LReference", "Trouble lsp_references", {})
-
-keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>", { noremap = true, silent = true })
-keymap.set("n", "gtd", "<cmd>Trouble lsp_type_definitions<cr>", { noremap = true, silent = true })
-keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
-
--- show popup for errors
-api.nvim_create_autocmd("CursorHold", { callback = vim.diagnostic.open_float })
-
-g.cursorhold_updatetime = 300 -- time until CursorHold fires
-
 --  preference
 opt.background = "dark"
 opt.breakindent = true -- apply indent to wrapped line (in case of wrap)

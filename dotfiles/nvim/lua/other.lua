@@ -5,42 +5,33 @@ require("nvim-treesitter.configs").setup({
     "rust",
     "typescript",
   },
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    disable = { "help" }, -- regex provides a better highlight
+  },
   indentation = { enable = true },
 })
-
-require("fidget").setup()
 
 require("indent_blankline").setup({
   show_current_context = true,
 })
 
-require("nvim-tree").setup({
-  renderer = {
-    icons = {
-      show = {
-        file = false,
-        folder = false,
-        folder_arrow = false,
-      },
-      glyphs = {
-        symlink = "",
-      },
-    },
-  },
-  diagnostics = {
-    enable = true,
-    debounce_delay = 100,
-    show_on_dirs = true,
-    icons = {
-      hint = "H",
-      info = "I",
-      warning = "W",
-      error = "E",
-    },
-  },
-})
+local function check_file_size()
+  local cmd = vim.api.nvim_command
+  local bytes = vim.fn.wordcount().bytes
+  local thres = 1000 * 1000 -- 1 MB
+  if bytes > thres then
+    cmd("IndentBlanklineDisable")
+    cmd("TSDisable hightlight")
+  end
+end
 
+vim.api.nvim_create_autocmd({ "BufRead" }, { pattern = "*", callback = check_file_size })
+
+-- Show lsp progress
+require("fidget").setup()
+
+-- Show git status in the sign column
 require("gitsigns").setup({
   signs = {
     add = { text = "+" },
@@ -50,5 +41,7 @@ require("gitsigns").setup({
     changedelete = { text = "!", show_count = true },
   },
 })
+vim.api.nvim_create_user_command("ShowGitDiff", "Gitsigns diffthis", {})
 
+-- Show colors for color codes and color names
 require("colorizer").setup()
