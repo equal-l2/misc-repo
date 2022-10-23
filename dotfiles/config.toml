@@ -1,4 +1,4 @@
-[build]
+[target.x86_64-apple-darwin]
 rustflags=[
     "-Ctarget-cpu=native",
     "-Clink-arg=-fuse-ld=mold",
