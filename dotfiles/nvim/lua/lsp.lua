@@ -1,7 +1,7 @@
 -- settings for LSP
 require("mason").setup()
 require("mason-lspconfig").setup({
-  automatic_installation = true,
+  -- automatic_installation = true,
 })
 
 -- this must be happen before Lua LSP setup
@@ -60,14 +60,14 @@ local base_config = {
   handlers = {},
 }
 
-local function lsp_setup(M, settings)
-  local config = vim.tbl_extend("error", base_config, { settings = settings })
+local function lsp_setup(M, settings, init_options)
+  local config = vim.tbl_extend("error", base_config, { settings = settings, init_options = init_options })
   M.setup(config)
 end
 
 local lspconfig = require("lspconfig")
 
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   capabilities = base_config.capabilities,
   on_attach = function(client, bufnr)
     base_on_attach(client, bufnr)
@@ -77,8 +77,6 @@ lspconfig.sumneko_lua.setup({
   settings = {
     Lua = {
       runtime = { version = "LuaJIT" },
-      diagnostics = { globals = { "vim" } },
-      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
     },
   },
 })
@@ -128,7 +126,16 @@ lsp_setup(lspconfig.tsserver, {
 })
 
 lsp_setup(lspconfig.pyright, {
-  analysis = { typeCheckingMode = "strict" },
+  python = {
+    analysis = {
+      typeCheckingMode = "strict",
+      diagnosticSeverityOverrides = {
+        reportUnknownVariableType = "information",
+        reportUnknownMemberType = "information",
+        reportUnknownArgumentType = "information",
+      },
+    },
+  },
 })
 
 lsp_setup(lspconfig.jsonls, {
@@ -138,9 +145,19 @@ lsp_setup(lspconfig.jsonls, {
   },
 })
 
+lsp_setup(lspconfig.ruff_lsp, {}, {
+  settings = {
+    args = {
+      "--select=ALL",
+      "--ignore=A003,ANN101,ANN401,D,E722,FBT,ICN001,INP001,PLR0913,PLR0915,PLR2004,RET504,SIM108,T201",
+    },
+  },
+})
+
 lsp_setup(lspconfig.taplo)
 lsp_setup(lspconfig.html)
 lsp_setup(lspconfig.volar)
+lsp_setup(lspconfig.svelte)
 
 -- LSP extensions
 require("clangd_extensions").setup({
@@ -188,6 +205,7 @@ local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.black,
   },
 })
 

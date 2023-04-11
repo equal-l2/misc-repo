@@ -5,10 +5,7 @@ require("nvim-treesitter.configs").setup({
     "rust",
     "typescript",
   },
-  highlight = {
-    enable = true,
-    disable = { "help" }, -- regex provides a better highlight
-  },
+  highlight = { enable = true },
   indentation = { enable = true },
 })
 

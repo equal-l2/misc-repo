@@ -77,6 +77,7 @@ set_shiftwidth("typescriptreact", 2)
 set_shiftwidth("vue", 2)
 set_shiftwidth("yaml", 2)
 api.nvim_create_autocmd("FileType", { pattern = "go", command = "setlocal tabstop=4" })
+api.nvim_create_autocmd("FileType", { pattern = "tex", command = "setlocal wrap" })
 
 -- assign filetype for unsupported types by vim
 api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.fxml", command = "setfiletype xml" })

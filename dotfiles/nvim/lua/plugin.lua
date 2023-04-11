@@ -31,22 +31,20 @@ require("packer").startup(function(use)
 
   -- completion
   use("hrsh7th/nvim-cmp")
+  use("hrsh7th/cmp-buffer")
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-nvim-lsp-signature-help")
-  use("hrsh7th/cmp-nvim-lua")
   use("hrsh7th/cmp-path")
   use({ "tzachar/cmp-tabnine", run = "./install.sh" })
   use("saadparwaiz1/cmp_luasnip")
   use("L3MON4D3/LuaSnip")
 
   -- project integration
-  use("editorconfig/editorconfig-vim")
   use("lewis6991/gitsigns.nvim")
 
   -- UI wrapper
   use("rcarriga/nvim-notify") -- vim.ui.notify
   use("stevearc/dressing.nvim") -- vim.ui.select and vim.ui.input
 
-  use("dstein64/vim-startuptime")
   use("norcalli/nvim-colorizer.lua")
 end)

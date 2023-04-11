@@ -27,10 +27,10 @@ cmp.setup({
     { name = "buffer" },
     { name = "cmp_tabnine" },
     { name = "crates" },
-    { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    { name = "path" },
     { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
+    { name = "path" },
   },
   mapping = {
     ["<Tab>"] = cmp.mapping(function(fallback)
