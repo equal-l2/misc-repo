@@ -1,6 +1,9 @@
 [target.x86_64-apple-darwin]
 rustflags=[
     "-Ctarget-cpu=native",
-    "-Clink-arg=-fuse-ld=mold",
+    "-Clink-arg=-fuse-ld=lld",
     "-L/usr/local/opt/libpq/lib",
 ]
+
+[registries.crates-io]
+protocol = "sparse"
