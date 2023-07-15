@@ -1,33 +1,13 @@
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-
-zstyle ':completion:*' completer _complete
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
-zstyle ':completion:*' use-cache true
-zstyle :compinstall filename '~/.zshrc'
-
-setopt magic_equal_subst
-setopt glob_dots
-setopt auto_pushd
-setopt pushd_to_home
-setopt list_packed
-
 fpath+=/usr/local/share/zsh/site-functions
 fpath+=/usr/local/share/zsh-completions
 fpath+=~/.zfunc
 autoload -Uz compinit
 compinit
 
-autoload -U zmv
-bindkey -e
-
 alias ls='uls --color=auto --classify=auto -A'
 export VOLTA_HOME=$HOME/.volta
 export EDITOR=nvim
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
 export MANPAGER='nvim +Man!'
 export PATH=$VOLTA_HOME/bin:~/bin:/usr/local/sbin:/usr/local/opt/texinfo/bin:$PATH
 export RUST_BACKTRACE=1
@@ -45,20 +25,19 @@ precmd() {
     out=$(git symbolic-ref --short -q HEAD 2>/dev/null)
     local cmdst=$?
     if [ $cmdst -eq 0 ]; then
+        # show branch name
         _git_br=$' @ '$out
     elif [ $cmdst -eq 1 ]; then
+        # no symbolic ref, show a red "?"
         _git_br=$' @ \e[41m?\e[49m'
     else
+        # the other errors, assuming the pwd is not a git repo
+        # show nothing
         _git_br=$''
     fi
 }
 
-if [ -n "$SSH_CONNECTION" ]; then
-    SERVER_IP=${${(z)SSH_CONNECTION}[3]}
-    PROMPT_BEFORE=$'\n\e[7m< SSH : '$SERVER_IP$' >\e[m'
-fi
-
-PS1=$PROMPT_BEFORE$'\n\e[7m[ %~$_git_br : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
+PS1=$'\n\e[7m[ %~$_git_br : \e[3%(?.2.1)mStatus %?\e[39m%1(j. : Job%2(j.s.) %j.) ]\e[m\n%# '
 
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[globbing]='fg=cyan'
