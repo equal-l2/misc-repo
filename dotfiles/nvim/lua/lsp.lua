@@ -145,11 +145,34 @@ lsp_setup(lspconfig.jsonls, {
   },
 })
 
+local ruff_ignores = {
+  "A003",
+  "ANN101",
+  "ANN401",
+  "D",
+  "E722",
+  "ERA001",
+  "FBT",
+  "ICN001",
+  "INP001",
+  "PLR0913",
+  "PLR0915",
+  "PLR2004",
+  "RET504",
+  "RUF001",
+  "RUF002",
+  "RUF003",
+  "S101",
+  "S311",
+  "SIM108",
+  "T201",
+}
+
 lsp_setup(lspconfig.ruff_lsp, {}, {
   settings = {
     args = {
       "--select=ALL",
-      "--ignore=A003,ANN101,ANN401,D,E722,FBT,ICN001,INP001,PLR0913,PLR0915,PLR2004,RET504,SIM108,T201",
+      "--ignore=" .. table.concat(ruff_ignores, ","),
     },
   },
 })
