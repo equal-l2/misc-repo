@@ -1,60 +1,57 @@
-local api = vim.api
-local g = vim.g
-local keymap = vim.keymap
-local opt = vim.opt
-
-opt.termguicolors = vim.env.COLORTERM == "truecolor"
+vim.opt.termguicolors = vim.env.COLORTERM == "truecolor"
 
 -- config for colorscheme
-if opt.termguicolors then
-  g.gruvbox_invert_selection = 0
-  g.gruvbox_italic = 1
+if vim.opt.termguicolors then
+  vim.g.gruvbox_invert_selection = 0
+  vim.g.gruvbox_italic = 1
   vim.cmd("colorscheme gruvbox")
 end
 
 --  config for latex
-g.tex_flavor = "latex"
-g.tex_conceal = ""
+vim.g.tex_flavor = "latex"
+vim.g.tex_conceal = ""
 
 --  preference
-opt.background = "dark"
-opt.breakindent = true -- apply indent to wrapped line (in case of wrap)
-opt.conceallevel = 0 -- disable concealed text
-opt.cursorline = true -- hightlight the line where cursor is
-opt.expandtab = true -- use space instead of tab as indent
-opt.fileencodings = "ucs-bom,utf-8,shift_jis,default,latin1"
-opt.fixeol = false -- do not add new line on the end of file
-opt.foldlevel = 15
-opt.foldmethod = "indent"
-opt.ignorecase = true -- search case-insensitively (overridden by smartcase)
-opt.inccommand = "nosplit" -- show result for replacing incrementally
-opt.laststatus = 3 -- global statusline (i.e. not on each windows)
-opt.lazyredraw = true -- performance improvement
-opt.list = true -- show invisible character like tabs or spaces
-opt.matchpairs:append("<:>") -- match brackets
-opt.mouse = "a" -- enable mouse on all mode
-opt.number = true -- show line number
-opt.pumblend = 5 -- make popup transparent
-opt.shiftwidth = 4 -- set indent width
-opt.shortmess:append("c") -- don't show message about completions
-opt.showmode = false -- I want the mode to be shown in the statusline
-opt.signcolumn = "yes" -- always show signcolumn
-opt.smartcase = true -- search case-sensitively only given uppercase
-opt.virtualedit = "block"
-opt.wildmode = "longest,full" -- wildmenu settings
-opt.wrap = false -- do not wrap
+vim.opt.background = "dark"
+vim.opt.breakindent = true -- apply indent to wrapped line (in case of wrap)
+vim.opt.conceallevel = 0 -- disable concealed text
+vim.opt.cursorline = true -- hightlight the line where cursor is
+vim.opt.expandtab = true -- use space instead of tab as indent
+vim.opt.fileencodings = "ucs-bom,utf-8,shift_jis,default,latin1"
+vim.opt.fixeol = false -- do not add new line on the end of file
+vim.opt.foldlevel = 15
+vim.opt.foldmethod = "indent"
+vim.opt.ignorecase = true -- search case-insensitively (overridden by smartcase)
+vim.opt.inccommand = "nosplit" -- show result for replacing incrementally
+vim.opt.laststatus = 3 -- global statusline (i.e. not on each windows)
+vim.opt.lazyredraw = true -- performance improvement
+vim.opt.list = true -- show invisible character like tabs or spaces
+vim.opt.matchpairs:append("<:>") -- match brackets
+vim.opt.mouse = "a" -- enable mouse on all mode
+vim.opt.number = true -- show line number
+vim.opt.pumblend = 5 -- make popup transparent
+vim.opt.shiftwidth = 4 -- set indent width
+vim.opt.shortmess:append("c") -- don't show message about completions
+vim.opt.showmode = false -- I want the mode to be shown in the statusline
+vim.opt.signcolumn = "yes" -- always show signcolumn
+vim.opt.smartcase = true -- search case-sensitively only given uppercase
+vim.opt.virtualedit = "block"
+vim.opt.wildmode = "longest,full" -- wildmenu settings
+vim.opt.wrap = false -- do not wrap
+
 
 -- enable esc in terminal
-keymap.set("t", "<ESC>", "<C-\\><C-n>", {
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", {
   silent = true,
-  noremap = true,
 })
 
 --  better line handling for wrapped lines
-keymap.set("", "j", "gj", { noremap = true })
-keymap.set("", "k", "gk", { noremap = true })
-keymap.set("", "<Down>", "gj", { noremap = true })
-keymap.set("", "<Up>", "gk", { noremap = true })
+vim.keymap.set("", "j", "gj")
+vim.keymap.set("", "k", "gk")
+vim.keymap.set("", "<Down>", "gj")
+vim.keymap.set("", "<Up>", "gk")
+
+local api = vim.api
 
 -- disable number and signcolumn on command-line window ("q:")
 api.nvim_create_autocmd("CmdwinEnter", { command = "setlocal nonumber" })
