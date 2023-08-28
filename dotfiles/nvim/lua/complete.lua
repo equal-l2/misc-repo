@@ -60,4 +60,4 @@ cmp.setup({
   },
 })
 
-require("cmp_tabnine.config"):setup()
+require("cmp_tabnine.config"):setup({})

@@ -18,7 +18,7 @@ require("packer").startup(function(use)
   use("neovim/nvim-lspconfig")
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
-  use("j-hui/fidget.nvim") -- show the progress of servers
+  use({ "j-hui/fidget.nvim", tag = "legacy" }) -- show the progress of servers
   use("folke/trouble.nvim")
   use("jose-elias-alvarez/null-ls.nvim") -- adaptor to use non-LSP tools as a LSP code action
 
