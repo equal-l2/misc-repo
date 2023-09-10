@@ -1,0 +1,51 @@
+# vim: noexpandtab softtabstop=0 shiftwidth=8
+[alias]
+	br = branch
+	cl = clone
+	st = status -sb
+	sw = switch
+	miki = fetch --all
+	rewrite = commit --amend --no-edit
+	brute = push --force-with-lease
+[core]
+	fscache = true
+	quotepath = off
+	fsmonitor = true
+[diff]
+	colorMoved = true
+[diff "sqlite3"]
+	binary = true
+	textconv = "echo .dump | sqlite3"
+[init]
+	defaultBranch = main
+[merge]
+	ff = no
+[protocol]
+	version = 2
+[pull]
+	ff = only
+[user]
+	name = "equal-l2"
+	email = "eng.equall2@gmail.com"
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[delta]
+	features = side-by-side
+	file-style = brightblue
+	file-decoration-style = brightblue ul
+	hunk-header-file-style = brightblue
+	hunk-header-decoration-style = brightblue box
+	hunk-header-line-number-style = brightblue
+	line-numbers-left-style = brightblue
+	line-numbers-right-style = brightblue
+[feature]
+	manyFiles = true
+[fetch]
+	parallel = 0 # use recommended value
+[credential]
+	helper = # clear helpers
+	helper = osxkeychain

@@ -9,11 +9,8 @@
 	brute = push --force-with-lease
 [core]
 	fscache = true
-	excludesfile = ~/.gitignore
 	quotepath = off
 	fsmonitor = true
-[credential]
-	helper = osxkeychain
 [diff]
 	colorMoved = true
 [diff "sqlite3"]
@@ -49,3 +46,6 @@
 	manyFiles = true
 [fetch]
 	parallel = 0 # use recommended value
+[credential "https://github.com"]
+	helper = # clear helpers
+	helper = !/usr/bin/gh auth git-credential
