@@ -1,3 +1,22 @@
+# .zshrc for macOS
+
+bindkey -e
+
+export LSCOLORS='gxfxcxdxbxegedabagacad'
+#               1 2 3 4 5 6 7 8 9 1011
+# 1.   directory
+# 2.   symbolic link
+# 3.   socket
+# 4.   pipe
+# 5.   executable
+# 6.   block special
+# 7.   character special
+# 8.   executable with setuid bit set
+# 9.   executable with setgid bit set
+# 10.  directory writable to others, with sticky bit
+# 11.  directory writable to others, without sticky bit
+
+zstyle ':completion:*' use-cache on
 zstyle ':completion:*' list-colors ''
 fpath+=/usr/local/share/zsh/site-functions
 fpath+=/usr/local/share/zsh-completions
@@ -5,7 +24,11 @@ fpath+=~/.zfunc
 autoload -Uz compinit
 compinit
 
-alias ls='uls --color=auto --classify=auto -A'
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=cyan'
+
+alias ls='ls -AFG'
 export VOLTA_HOME=$HOME/.volta
 export EDITOR=nvim
 export MANPAGER='nvim +Man!'
