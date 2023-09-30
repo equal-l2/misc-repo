@@ -9,9 +9,6 @@ require("neodev").setup({})
 
 vim.g.cursorhold_updatetime = 300 -- time until CursorHold fires
 
--- encourage use of <C-[>
-vim.keymap.set("n", "gd", [[<cmd>echo "gd is disabled! use <C-[>"<cr>]], { noremap = true, silent = true })
-
 local base_on_attach = function(client, bufnr)
   local api = vim.api
   local keymap = vim.keymap
